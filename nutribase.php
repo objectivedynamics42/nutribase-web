@@ -32,7 +32,7 @@ function doQuery(string $sql, $conn){
 function getTags($conn) {
     header('Content-Type: application/json');
 
-    // Prepare the SQL query
+    //  TODO - mysqli_real_escape_string
     $sql = "SELECT 
                 tag.id AS TagId,
                 tag.name AS TagName
@@ -48,8 +48,7 @@ function getTags($conn) {
 function getFoods($conn, $tagId) {
     header('Content-Type: application/json');
 
-    // Prepare the SQL query
-    $sql = "SELECT 
+    $sql = sprintf("SELECT 
                 food.id AS FoodId,
                 food.name AS FoodName,
                 tagged_food.tag_id
@@ -58,9 +57,10 @@ function getFoods($conn, $tagId) {
             INNER JOIN 
                 tagged_food ON tagged_food.food_id = food.id
             WHERE
-                tagged_food.tag_id = $tagId
+                tagged_food.tag_id = '%s'
             ORDER BY 
-                food.name";
+                food.name",
+                mysqli_real_escape_string($conn, $tagId));
 
     echo doQuery($sql, $conn);
 }
@@ -69,7 +69,7 @@ function getFoods($conn, $tagId) {
 function getSingleFood($conn, $foodId) {
     header('Content-Type: application/json');
 
-    // Prepare the SQL query
+    //  TODO - mysqli_real_escape_string
     $sql = "SELECT 
                 food.id AS FoodId,
                 food.name AS FoodName,
