@@ -1,0 +1,13 @@
+INSERT INTO `tag`(`id`, `name`) VALUES (1, 'Bakery');
+INSERT INTO `tag`(`id`, `name`) VALUES (2, 'Dairy');
+INSERT INTO `tag`(`id`, `name`) VALUES (3, 'Fish');
+INSERT INTO `tag`(`id`, `name`) VALUES (4, 'Fruit');
+INSERT INTO `tag`(`id`, `name`) VALUES (5, 'Grains');
+INSERT INTO `tag`(`id`, `name`) VALUES (6, 'Legumes');
+INSERT INTO `tag`(`id`, `name`) VALUES (7, 'Meat');
+INSERT INTO `tag`(`id`, `name`) VALUES (8, 'Oil');
+INSERT INTO `tag`(`id`, `name`) VALUES (9, 'Packaged');
+INSERT INTO `tag`(`id`, `name`) VALUES (10, 'Pasta');
+INSERT INTO `tag`(`id`, `name`) VALUES (11, 'Rice');
+INSERT INTO `tag`(`id`, `name`) VALUES (12, 'Supplements');
+INSERT INTO `tag`(`id`, `name`) VALUES (13, 'Vegetables');

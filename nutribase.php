@@ -1,5 +1,59 @@
 <?php
 
+function prettifyJson($json) {
+    // Decode the JSON string to make sure it's valid
+    $decodedJson = json_decode($json, true);
+    
+    if (json_last_error() !== JSON_ERROR_NONE) {
+        return 'Invalid JSON string';
+    }
+    
+    // Encode the array back to a JSON string with pretty print
+    $prettyJson = json_encode($decodedJson, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+    
+    // Wrap it in <pre> tags for better formatting in HTML
+    return '<pre>' . htmlspecialchars($prettyJson) . '</pre>';
+}
+
+function fetchFoodTagDataAsJson($conn) {
+
+    // Prepare the SQL query
+    $sql = "SELECT 
+                food.name AS FoodName,
+                food.kcal_per_unit as kCal,
+                food.protein_grams_per_unit as Protein,
+                tag.name AS TagName
+            FROM 
+                tagged_food
+            INNER JOIN 
+                food ON tagged_food.food_id = food.id
+            INNER JOIN 
+                tag ON tagged_food.tag_id = tag.id
+            ORDER BY 
+                food.name, tag.name";
+
+    // Execute the query
+    $result = $conn->query($sql);
+
+    if ($result === false) {
+        return json_encode([
+            "error" => "Query error: " . $conn->error
+        ]);
+    }
+
+    // Fetch all rows as an associative array
+    $data = [];
+    while ($row = $result->fetch_assoc()) {
+        $data[] = $row;
+    }
+
+    // Free result set and close connection
+    $result->free();
+
+    // Convert the data to JSON format
+    return json_encode($data);
+}
+
 // Database connection details
 $servername = "localhost";
 $username = "object_nutribase_admin";
@@ -9,7 +63,6 @@ $dbname = "object_nutribase";
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -18,67 +71,11 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Table name to populate
-$table = "food";
+$jsonData = fetchFoodTagDataAsJson($conn);
 
-// Step 1: Check if the table is empty
-$sqlCheck = "SELECT COUNT(*) as count FROM $table";
-$result = $conn->query($sqlCheck);
-
-if ($result) {
-    $row = $result->fetch_assoc();
-    if ($row['count'] == 0) {
-        $sqlInsert = getStandingFoodData($table);
-        insertStandingData($table, $sqlInsert, $conn);
-    } else {
-        echo "Table already contains data. No action taken.";
-    }
-
-
-
-
-
-
-    
-
-    $sqlSelect = "SELECT id, name, kCalPerUnit, proteinGramsPerUnit, unitCaptionOverride from $table";
-    $result = $conn->query($sqlSelect);
-    if( $result->num_rows > 0){
-        echo "<table border='1'>";
-
-        while($row = $result->fetch_assoc()){
-            echo "<tr><td>" . htmlspecialchars($row['id']) . "</td><td>" . htmlspecialchars($row['name']) . "</td></tr>";
-        }
-
-        echo "</table>";
-    }
-} else {
-    echo "Error checking table: " . $conn->error;
-}
+echo prettifyJson($jsonData);
 
 // Close connection
 $conn->close();
-
-function getStandingFoodData($table){
-    if (empty($table)) {
-        throw new Exception("Table name is required");
-    }
-
-    $sqlInsert = "
-        INSERT INTO $table (name, kCalPerUnit, proteinGramsPerUnit, unitCaptionOverride)
-        VALUES 
-        ('Chickpeas - Freshona (LIDL) - In Water', 125, 6.4, NULL),
-        ('Kidney Beans', 93, 7.2, NULL),
-        ('Greek Yoghurt', 126, 4, NULL);
-    ";
-
-    return $sqlInsert;
-}
-
-function insertStandingData(string $table, string $sqlInsert, $conn){
-        if ($conn->query($sqlInsert) !== TRUE) {
-            echo "Error inserting data: " . $conn->error;
-        }
-}
 
 ?>
