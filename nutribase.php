@@ -1,19 +1,36 @@
 <?php
 
-function prettifyJson($json) {
-    // Decode the JSON string to make sure it's valid
-    $decodedJson = json_decode($json, true);
-    
-    if (json_last_error() !== JSON_ERROR_NONE) {
-        return 'Invalid JSON string';
-    }
-    
-    // Encode the array back to a JSON string with pretty print
-    $prettyJson = json_encode($decodedJson, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
-    
-    // Wrap it in <pre> tags for better formatting in HTML
-    return '<pre>' . htmlspecialchars($prettyJson) . '</pre>';
+// Function to handle /gettags
+function getTags($conn) {
+    // Placeholder for logic to get tags
+    header('Content-Type: application/json');
+    echo json_encode([
+        ["id" => 1, "name" => "Fruit"],
+        ["id" => 2, "name" => "Vegetable"]
+    ]);
 }
+
+// Function to handle /getfoods
+function getFoods($conn, $tagId) {
+    // Placeholder for logic to get foods by tag ID
+    header('Content-Type: application/json');
+    echo json_encode([
+        ["id" => 101, "name" => "Apple", "tagId" => $tagId],
+        ["id" => 102, "name" => "Carrot", "tagId" => $tagId]
+    ]);
+}
+
+// Function to handle /getSingleFood
+function getSingleFood($conn, $foodId) {
+    // Placeholder for logic to get a specific food by food ID
+    header('Content-Type: application/json');
+    echo json_encode([
+        "id" => $foodId,
+        "name" => "Sample Food",
+        "details" => "Details about the food"
+    ]);
+}
+
 
 function fetchFoodTagDataAsJson($conn) {
 
@@ -71,9 +88,69 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$jsonData = fetchFoodTagDataAsJson($conn);
+//START
+// Handle routing for /nutribase.php
+if (isset($_SERVER['REQUEST_URI'])) {
+    $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+    $query = [];
+    parse_str(parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY), $query);
 
-echo prettifyJson($jsonData);
+    switch ($uri) {
+        case '/nutribase.php/gettags':
+            getTags($conn);
+            break;
+
+        case '/nutribase.php/getfoods':
+            if (isset($query['tagid'])) {
+                getFoods($conn, $query['tagid']);
+            } else {
+                http_response_code(400);
+                echo json_encode(["error" => "Missing required parameter: tagid"]);
+            }
+            break;
+
+        case '/nutribase.php/getSingleFood':
+            if (isset($query['foodid'])) {
+                getSingleFood($conn, $query['foodid']);
+            } else {
+                http_response_code(400);
+                echo json_encode(["error" => "Missing required parameter: foodid"]);
+            }
+            break;
+
+        default:
+            http_response_code(404);
+            echo json_encode(["error" => "Endpoint not found"]);
+            break;
+    }
+} else {
+    http_response_code(500);
+    echo json_encode(["error" => "Invalid request"]);
+}
+//END
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Close connection
 $conn->close();
