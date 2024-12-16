@@ -1,54 +1,11 @@
 <?php
 
-// Function to handle /gettags
-function getTags($conn) {
-    // Placeholder for logic to get tags
-    header('Content-Type: application/json');
-    echo json_encode([
-        ["id" => 1, "name" => "Fruit"],
-        ["id" => 2, "name" => "Vegetable"]
-    ]);
-}
+//  Examples
+//  https://objectivedynamics.co.uk/nutribase.php/getTags
+//  https://objectivedynamics.co.uk/nutribase.php/getFoods?tagId=13
+//  https://objectivedynamics.co.uk/nutribase.php/getSingleFood?foodId=66
 
-// Function to handle /getfoods
-function getFoods($conn, $tagId) {
-    // Placeholder for logic to get foods by tag ID
-    header('Content-Type: application/json');
-    echo json_encode([
-        ["id" => 101, "name" => "Apple", "tagId" => $tagId],
-        ["id" => 102, "name" => "Carrot", "tagId" => $tagId]
-    ]);
-}
-
-// Function to handle /getSingleFood
-function getSingleFood($conn, $foodId) {
-    // Placeholder for logic to get a specific food by food ID
-    header('Content-Type: application/json');
-    echo json_encode([
-        "id" => $foodId,
-        "name" => "Sample Food",
-        "details" => "Details about the food"
-    ]);
-}
-
-
-function fetchFoodTagDataAsJson($conn) {
-
-    // Prepare the SQL query
-    $sql = "SELECT 
-                food.name AS FoodName,
-                food.kcal_per_unit as kCal,
-                food.protein_grams_per_unit as Protein,
-                tag.name AS TagName
-            FROM 
-                tagged_food
-            INNER JOIN 
-                food ON tagged_food.food_id = food.id
-            INNER JOIN 
-                tag ON tagged_food.tag_id = tag.id
-            ORDER BY 
-                food.name, tag.name";
-
+function doQuery(string $sql, $conn){
     // Execute the query
     $result = $conn->query($sql);
 
@@ -69,6 +26,62 @@ function fetchFoodTagDataAsJson($conn) {
 
     // Convert the data to JSON format
     return json_encode($data);
+}
+
+//  gettags handler
+function getTags($conn) {
+    header('Content-Type: application/json');
+
+    // Prepare the SQL query
+    $sql = "SELECT 
+                tag.id AS TagId,
+                tag.name AS TagName
+            FROM 
+                tag
+            ORDER BY 
+                tag.name";
+
+    echo doQuery($sql, $conn);
+}
+
+// Function to handle /getfoods
+function getFoods($conn, $tagId) {
+    header('Content-Type: application/json');
+
+    // Prepare the SQL query
+    $sql = "SELECT 
+                food.id AS FoodId,
+                food.name AS FoodName,
+                tagged_food.tag_id
+            FROM 
+                food
+            INNER JOIN 
+                tagged_food ON tagged_food.food_id = food.id
+            WHERE
+                tagged_food.tag_id = $tagId
+            ORDER BY 
+                food.name";
+
+    echo doQuery($sql, $conn);
+}
+
+// Function to handle /getSingleFood
+function getSingleFood($conn, $foodId) {
+    header('Content-Type: application/json');
+
+    // Prepare the SQL query
+    $sql = "SELECT 
+                food.id AS FoodId,
+                food.name AS FoodName,
+                food.kcal_per_unit As kCal,
+                food.protein_grams_per_unit as Protein,
+                food.unit_caption_override As Override
+            FROM 
+                food
+            WHERE
+                food.id = $foodId";
+
+    echo doQuery($sql, $conn);
 }
 
 // Database connection details
@@ -128,29 +141,6 @@ if (isset($_SERVER['REQUEST_URI'])) {
     echo json_encode(["error" => "Invalid request"]);
 }
 //END
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // Close connection
 $conn->close();
