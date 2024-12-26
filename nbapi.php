@@ -1,10 +1,5 @@
 <?php
 
-//  Examples
-//  https://objectivedynamics.co.uk/nutribase.php/getTags
-//  https://objectivedynamics.co.uk/nutribase.php/getFoods?tagId=13
-//  https://objectivedynamics.co.uk/nutribase.php/getSingleFood?foodId=66
-
 function doQuery(string $sql, $conn){
     // Execute the query
     $result = $conn->query($sql);
@@ -102,7 +97,7 @@ if ($conn->connect_error) {
 }
 
 //START
-// Handle routing for /nutribase.php
+// Handle routing for /nbapi.php
 if (isset($_SERVER['REQUEST_URI'])) {
     $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
     $query = [];
@@ -113,15 +108,15 @@ if (isset($_SERVER['REQUEST_URI'])) {
 	$query = array_change_key_case($query, CASE_LOWER);
     
     switch ($uri) {
-        case '/nutribase.php/gettags':
+        case '/nbapi.php/gettags':
 			// Fall through
-        case '/nutribase/gettags':
+        case '/nbapi/gettags':
             getTags($conn);
             break;
 
-        case '/nutribase.php/getfoods':
+        case '/nbapi.php/getfoods':
 			// Fall through
-        case '/nutribase/getfoods':
+        case '/nbapi/getfoods':
             if (isset($query['tagid'])) {
                 getFoods($conn, $query['tagid']);
             } else {
@@ -130,9 +125,9 @@ if (isset($_SERVER['REQUEST_URI'])) {
             }
             break;
 
-        case '/nutribase.php/getsinglefood':
+        case '/nbapi.php/getsinglefood':
 			// Fall through
-        case '/nutribase/getsinglefood':
+        case '/nbapi/getsinglefood':
             if (isset($query['foodid'])) {
                 getSingleFood($conn, $query['foodid']);
             } else {
