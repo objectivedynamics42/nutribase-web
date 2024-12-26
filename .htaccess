@@ -1,0 +1,11 @@
+# Enable the Rewrite Engine
+RewriteEngine On
+
+# Route / to /index.html
+RewriteRule ^$ /index.html [L]
+
+# Route /nutribase to /nutribase.php, preserving query parameters
+RewriteRule ^nutribase$ /nutribase.php [QSA,L]
+
+# Route /nutribase/endpoint to /nutribase.php/endpoint, preserving query parameters
+RewriteRule ^nutribase/(.+)$ /nutribase.php/$1 [QSA,L]
