@@ -108,6 +108,9 @@ if (isset($_SERVER['REQUEST_URI'])) {
     $query = [];
     parse_str(parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY), $query);
 
+    // Convert $uri to lowercase to make it case-insensitive
+    $uri = strtolower($uri);    
+    
     switch ($uri) {
         case '/nutribase.php/gettags':
             getTags($conn);
