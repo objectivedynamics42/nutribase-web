@@ -109,14 +109,19 @@ if (isset($_SERVER['REQUEST_URI'])) {
     parse_str(parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY), $query);
 
     // Convert $uri to lowercase to make it case-insensitive
-    $uri = strtolower($uri);    
+    $uri = strtolower($uri);
+	$query = array_change_key_case($query, CASE_LOWER);
     
     switch ($uri) {
         case '/nutribase.php/gettags':
+			// Fall through
+        case '/nutribase/gettags':
             getTags($conn);
             break;
 
         case '/nutribase.php/getfoods':
+			// Fall through
+        case '/nutribase/getfoods':
             if (isset($query['tagid'])) {
                 getFoods($conn, $query['tagid']);
             } else {
@@ -126,6 +131,8 @@ if (isset($_SERVER['REQUEST_URI'])) {
             break;
 
         case '/nutribase.php/getsinglefood':
+			// Fall through
+        case '/nutribase/getsinglefood':
             if (isset($query['foodid'])) {
                 getSingleFood($conn, $query['foodid']);
             } else {
@@ -135,8 +142,12 @@ if (isset($_SERVER['REQUEST_URI'])) {
             break;
 
         default:
-            http_response_code(404);
-            echo json_encode(["error" => "Endpoint not found"]);
+			http_response_code(404);
+            echo json_encode([
+                "error" => "Endpoint not found",
+                "uri" => $uri,
+                "query" => $query
+            ]);
             break;
     }
 } else {
