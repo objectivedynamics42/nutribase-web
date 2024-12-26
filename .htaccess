@@ -9,3 +9,11 @@ RewriteRule ^nbapi$ /nbapi.php [QSA,L]
 
 # Route /nbapi/endpoint to /nbapi.php/endpoint, preserving query parameters
 RewriteRule ^nbapi/(.+)$ /nbapi.php/$1 [QSA,L]
+
+# Rules specifically for /myapp
+# RewriteBase /myapp/
+# RewriteCond %{REQUEST_URI} ^/myapp
+# RewriteCond %{REQUEST_FILENAME} !-f
+# RewriteCond %{REQUEST_FILENAME} !-d
+# RewriteRule ^ /myapp/index.html [L]
+
