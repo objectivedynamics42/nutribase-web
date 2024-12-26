@@ -122,7 +122,7 @@ if (isset($_SERVER['REQUEST_URI'])) {
             }
             break;
 
-        case '/nutribase.php/getSingleFood':
+        case '/nutribase.php/getsinglefood':
             if (isset($query['foodid'])) {
                 getSingleFood($conn, $query['foodid']);
             } else {
