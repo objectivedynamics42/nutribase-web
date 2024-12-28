@@ -4,16 +4,8 @@ RewriteEngine On
 # Route / to /index.html
 RewriteRule ^$ /index.html [L]
 
-# Route /nbapi to /nbapi.php, preserving query parameters
-RewriteRule ^nbapi$ /nbapi.php [QSA,L]
+# Route /nutribase to /nutribase.php, preserving query parameters
+RewriteRule ^nutribase$ /nutribase.php [QSA,L]
 
-# Route /nbapi/endpoint to /nbapi.php/endpoint, preserving query parameters
-RewriteRule ^nbapi/(.+)$ /nbapi.php/$1 [QSA,L]
-
-# Rules specifically for /myapp
-# RewriteBase /myapp/
-# RewriteCond %{REQUEST_URI} ^/myapp
-# RewriteCond %{REQUEST_FILENAME} !-f
-# RewriteCond %{REQUEST_FILENAME} !-d
-# RewriteRule ^ /myapp/index.html [L]
-
+# Route /nutribase/endpoint to /nutribase.php/endpoint, preserving query parameters
+RewriteRule ^nutribase/(.+)$ /nutribase.php/$1 [QSA,L]
