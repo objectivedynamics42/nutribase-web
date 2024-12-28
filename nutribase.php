@@ -97,7 +97,7 @@ if ($conn->connect_error) {
 }
 
 //START
-// Handle routing for /nbapi.php
+// Handle routing for /nutribase.php
 if (isset($_SERVER['REQUEST_URI'])) {
     $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
     $query = [];
@@ -108,15 +108,15 @@ if (isset($_SERVER['REQUEST_URI'])) {
 	$query = array_change_key_case($query, CASE_LOWER);
     
     switch ($uri) {
-        case '/nbapi.php/gettags':
+        case '/nutribase.php/gettags':
 			// Fall through
-        case '/nbapi/gettags':
+        case '/nutribase/gettags':
             getTags($conn);
             break;
 
-        case '/nbapi.php/getfoods':
+        case '/nutribase.php/getfoods':
 			// Fall through
-        case '/nbapi/getfoods':
+        case '/nutribase/getfoods':
             if (isset($query['tagid'])) {
                 getFoods($conn, $query['tagid']);
             } else {
@@ -125,9 +125,9 @@ if (isset($_SERVER['REQUEST_URI'])) {
             }
             break;
 
-        case '/nbapi.php/getsinglefood':
+        case '/nutribase.php/getsinglefood':
 			// Fall through
-        case '/nbapi/getsinglefood':
+        case '/nutribase/getsinglefood':
             if (isset($query['foodid'])) {
                 getSingleFood($conn, $query['foodid']);
             } else {
