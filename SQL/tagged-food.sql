@@ -1,4 +1,4 @@
-INSERT INTO `tagged_food`(`food_id`, `tag_id`) VALUES
+INSERT IGNORE INTO `tagged_food`(`food_id`, `tag_id`) VALUES
 (1, 6), -- Chickpeas - Legumes
 (2, 6), -- Kidney Beans - Legumes
 (3, 10), -- Penne - Pasta
@@ -6,8 +6,8 @@ INSERT INTO `tagged_food`(`food_id`, `tag_id`) VALUES
 (5, 11), -- Rice - Wholegrain, dried - Rice
 (6, 11), -- Rice - Wholegrain, cooked - Rice
 (7, 7), -- Chicken Breast - Meat
-(8, 5), -- Ryvita - Fruity - Grains
-(9, 5), -- Bread - Wholemeal - Grains
+(8, 1), -- Ryvita - Fruity - Bakery
+(9, 1), -- Bread - Wholemeal - Bakery
 (10, 2), -- Eggs - Large - Dairy
 (11, 2), -- Eggs - Medium - Dairy
 (12, 2), -- Parmesan - Dairy

@@ -1,4 +1,4 @@
-INSERT INTO `food`(`id`, `name`, `kcal_per_unit`, `protein_grams_per_unit`, `unit_caption_override`) VALUES 
+INSERT IGNORE INTO `food`(`id`, `name`, `kcal_per_unit`, `protein_grams_per_unit`, `unit_caption_override`) VALUES 
 (1, 'Chickpeas - Freshona (LIDL) - In Water', 125, 6.4, NULL),
 (2, 'Kidney Beans', 93, 7.2, NULL),
 (3, 'Penne', 359, NULL, NULL),
