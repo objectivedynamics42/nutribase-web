@@ -27,6 +27,33 @@ function doQuery(string $sql, $params, $conn) {
     return $data;
 }
 
+function bootstrapWrap($content){
+    $bootstrapUrl = "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css";
+
+    $customBackground =
+    "<style>" .
+        ".custom-blue-bg {" .
+            "background-color: #17a2b8;".
+        "}" .
+    "</style>";
+
+    $preContent = "<!DOCTYPE html>" .
+        "<html lang=\"en\">" .
+        "<!-- Version 1 -->" .
+        "<head>" .
+        "<meta charset=\"UTF-8\">" .
+        "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">" .
+        "<title>Nutribase</title>" .
+        "<link href=\"". $bootstrapUrl . "\" rel=\"stylesheet\">" .
+        $customBackground .
+        "</head><body>";
+    $postContent =  "</body></html>";
+
+    $html = $preContent . $content . $postContent;
+
+    return $html;
+}
+
 function sendResponse($content, $contentType = 'application/json', $httpStatus = 200) {
     http_response_code($httpStatus);
     header("Content-Type: $contentType; charset=utf-8");
@@ -38,6 +65,19 @@ function sendResponse($content, $contentType = 'application/json', $httpStatus =
     exit;
 }
 
+function getAnchorForTaggedFoods($tagId, $tagName) {
+
+    $url = "https://objectivedynamics.co.uk/nutribase/getFoods?tagId=" . $tagId;
+
+    return "<a href=\"". $url . "\" class=\"text-decoration-none\">" . $tagName . "</a>";
+}
+
+function getAnchorForFood($foodId, $foodName){
+    $url = "https://objectivedynamics.co.uk/nutribase/getSingleFood?foodId=" . $foodId;
+
+    return "<a href=\"". $url . "\" class=\"text-decoration-none\">" . $foodName . "</a>";
+}
+
 function getTags($conn) {
     $sql = "SELECT id AS TagId, name AS TagName FROM tag ORDER BY name";
     $result = doQuery($sql, [], $conn);
@@ -46,18 +86,52 @@ function getTags($conn) {
         sendResponse(["error" => $result["error"]], 'application/json', 500);
     }
 
-    $html = "<div>";
+    $preContent = "<div class=\"container\">" .
+        "<div class=\"row " . "custom-blue-bg" . " text-white text-center py-3\">" .
+            "<h1>nutribase</h1>" .
+        "</div>" .
+        "<div class=\"row bg-secondary text-white py-2\">" .
+            "<h2 class=\"text-center\">Categories</h2>" .
+        "</div>" .
+        "<div class=\"row mt-4\">" .
+            "<div class=\"col\">" .
+                "<ul class=\"list-group\">";
+
+    $postContent = "</ul>" .
+            "</div>" .
+        "</div>" .
+    "</div>" .
+    "<script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js\"></script>";
+
+    $content = "";
     foreach ($result as $row) {
         $tagName = htmlspecialchars($row['TagName']);
         $tagId = htmlspecialchars($row['TagId']);
-        $html .= "<div data-tag-id='" . $tagId . "'>" . getAnchorForTaggedFoods($tagId, $tagName) . "</div>";
+        $item =
+        "<li class=\"list-group-item text-center\">" .
+            getAnchorForTaggedFoods($tagId, $tagName) .
+        "</li>";
+        $content .= $item;
     }
-    $html .= "</div>";
+
+    $html = bootstrapWrap($preContent . $content . $postContent);
 
     sendResponse($html, 'text/html');
 }
 
 function getFoods($conn, $tagId) {
+
+    //  Get tag name
+    $sql = "SELECT tag.name AS tagName FROM tag
+            WHERE tag.id = ? ORDER BY tag.name";
+    $result = doQuery($sql, [$tagId], $conn);
+    if (isset($result["error"])) {
+        sendResponse(["error" => $result["error"]], 'application/json', 500);
+    }
+    $row = $result[0];
+    $tagName = $row['tagName'];
+
+    //  Get foods
     $sql = "SELECT food.id AS FoodId, food.name AS FoodName FROM food 
             INNER JOIN tagged_food ON tagged_food.food_id = food.id 
             WHERE tagged_food.tag_id = ? ORDER BY food.name";
@@ -67,31 +141,43 @@ function getFoods($conn, $tagId) {
         sendResponse(["error" => $result["error"]], 'application/json', 500);
     }
 
-    $html = "<div";
+    $preContent = "<div class=\"container\">" .
+        "<div class=\"row " . "custom-blue-bg" . " text-white text-center py-3\">" .
+            "<h1>nutribase</h1>" .
+        "</div>" .
+        "<div class=\"row bg-secondary text-white py-2\">" .
+            "<h2 class=\"text-center\">" . $row['tagName'] . "</h2>" .
+        "</div>" .
+        "<div class=\"row mt-4\">" .
+            "<div class=\"col\">" .
+                "<ul class=\"list-group\">";
+
+    $postContent = "</ul>" .
+            "</div>" .
+        "</div>" .
+    "</div>" .
+    "<script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js\"></script>";
+
+    $content = "";
     foreach ($result as $row) {
         $foodId = htmlspecialchars($row['FoodId']);
         $foodName = htmlspecialchars($row['FoodName']);
-        $html .= "<div data-food-id='" . $foodId . "'>" . getAnchorForFood($foodId, $foodName) . "</div>";
+
+        $item =
+        "<li class=\"list-group-item text-center\">" .
+            getAnchorForFood($foodId, $foodName) .
+        "</li>";
+        $content .= $item;
     }
-    $html .= "</div>";
+
+    $html = bootstrapWrap($preContent . $content . $postContent);
 
     sendResponse($html, 'text/html');
 }
 
-function getAnchorForTaggedFoods($tagId, $tagName) {
-
-    $url = "https://objectivedynamics.co.uk/nutribase/getFoods?tagId=" . $tagId;
-    return "<a href=\"". $url . "\">" . $tagName . "</a>";
-}
-
-function getAnchorForFood($foodId, $foodName){
-    $url = "https://objectivedynamics.co.uk/nutribase/getSingleFood?foodId=" . $foodId;
-    return "<a href=\"". $url . "\">" . $foodName . "</a>";
-}
-
 function getSingleFood($conn, $foodId) {
     $sql = "SELECT id AS FoodId, name AS FoodName, kcal_per_unit AS kCal, 
-                   protein_grams_per_unit AS Protein, unit_caption_override AS Override 
+                   protein_grams_per_unit AS protein, unit_caption_override AS override 
             FROM food WHERE id = ?";
     $result = doQuery($sql, [$foodId], $conn);
 
@@ -104,12 +190,41 @@ function getSingleFood($conn, $foodId) {
     }
 
     $row = $result[0];
-    $html = "<div data-food-id='" . htmlspecialchars($row['FoodId']) . "'>
-                <div>Item: " . htmlspecialchars($row['FoodName']) . "</div>
-                <div>kCal: " . htmlspecialchars($row['kCal']) . "</div>
-                <div>Protein: " . htmlspecialchars($row['Protein']) . "</div>
-                <div>Override: " . htmlspecialchars($row['Override']) . "</div>
-            </div>";
+    $foodName = htmlspecialchars($row['FoodName']);
+
+    $preContent = "<div class=\"container\">" .
+        "<div class=\"row " . "custom-blue-bg" . " text-white text-center py-3\">" .
+            "<h1>nutribase</h1>" .
+        "</div>" .
+        "<div class=\"row bg-secondary text-white py-2\">" .
+            "<h2 class=\"text-center\">" . $foodName . "</h2>" .
+        "</div>" .
+        "<div class=\"row mt-4\">" .
+            "<div class=\"col\">" .
+                "<ul class=\"list-group\">";
+
+    $postContent = "</ul>" .
+            "</div>" .
+        "</div>" .
+    "</div>" .
+    "<script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js\"></script>";
+
+    $unit = $row['override'] ?? 'Per 100g';
+    $proteinGrams = $row['protein'] ?? '0.0';
+    $kCal = $row['kCal'];
+
+    $content =
+        "<h3 class=\"text-center\">" . htmlspecialchars($unit) . "</h2>" .
+        "<li class=\"list-group-item d-flex justify-content-between align-items-center\">" .
+            "<span>Calories:</span>" . 
+            "<span class=\"ms-4\">" . htmlspecialchars($kCal)  . "</span>" .
+            "</li>" .
+        "<li class=\"list-group-item d-flex justify-content-between align-items-center\">" .
+            "<span>Grams of Protein:</span>" . 
+            "<span class=\"ms-4\">" . htmlspecialchars($proteinGrams)  . "</span>" .
+        "</li>";
+
+    $html = bootstrapWrap($preContent  . $content . $postContent);
 
     sendResponse($html, 'text/html');
 }
@@ -138,6 +253,7 @@ if (isset($_SERVER['REQUEST_URI'])) {
     switch ($uri) {
         case '/nutribase.php/gettags':
         case '/nutribase/gettags':
+        case '/nutribase':
         case '/':
             getTags($conn);
             break;
