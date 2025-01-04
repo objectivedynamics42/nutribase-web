@@ -3,6 +3,7 @@
 /**
  * Database Helper Functions
  */
+//TODO why isn't this in the NutribaseRepository class?
 function doQuery(string $sql, array $params, mysqli $conn): array {
     // Prepare the query
     $stmt = $conn->prepare($sql);
@@ -33,6 +34,7 @@ function doQuery(string $sql, array $params, mysqli $conn): array {
 /**
  * HTML Helper Functions
  */
+//TODO why isn't this in the NutribaseView class?
 function bootstrapWrap(string $content): string {
     $bootstrapUrl = "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css";
 
