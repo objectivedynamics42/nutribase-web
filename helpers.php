@@ -1,37 +1,6 @@
 <?php
 
 /**
- * Database Helper Functions
- */
-//TODO why isn't this in the NutribaseRepository class?
-function doQuery(string $sql, array $params, mysqli $conn): array {
-    // Prepare the query
-    $stmt = $conn->prepare($sql);
-    if (!$stmt) {
-        throw new Exception("Failed to prepare statement: " . $conn->error);
-    }
-
-    try {
-        // Bind parameters if provided
-        if (!empty($params)) {
-            $types = str_repeat('s', count($params)); // Assume all parameters are strings for simplicity
-            $stmt->bind_param($types, ...$params);
-        }
-
-        // Execute the query
-        if (!$stmt->execute()) {
-            throw new Exception("Execution error: " . $stmt->error);
-        }
-
-        // Fetch results if the query returns any
-        $result = $stmt->get_result();
-        return $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
-    } finally {
-        $stmt->close();
-    }
-}
-
-/**
  * HTML Helper Functions
  */
 //TODO why isn't this in the NutribaseView class?
@@ -80,7 +49,6 @@ function sendResponse($content, string $contentType = 'application/json', int $h
         // Handle any other types or defaults
         echo $content; // Default output if no specific type is found
     }
-
 
     // Terminate script
     exit;

@@ -7,6 +7,33 @@ class NutribaseRepository {
         $this->conn = $conn;
     }
 
+    private function doQuery(string $sql, array $params): array {
+        // Prepare the query
+        $stmt = $this->conn->prepare($sql);
+        if (!$stmt) {
+            throw new Exception("Failed to prepare statement: " . $this->conn->error);
+        }
+
+        try {
+            // Bind parameters if provided
+            if (!empty($params)) {
+                $types = str_repeat('s', count($params)); // Assume all parameters are strings for simplicity
+                $stmt->bind_param($types, ...$params);
+            }
+
+            // Execute the query
+            if (!$stmt->execute()) {
+                throw new Exception("Execution error: " . $stmt->error);
+            }
+
+            // Fetch results if the query returns any
+            $result = $stmt->get_result();
+            return $result ? $result->fetch_all(MYSQLI_ASSOC) : [];
+        } finally {
+            $stmt->close();
+        }
+    }
+    
     public function getAllTags(): array {
         $sql = "SELECT id AS TagId, name AS TagName FROM tag ORDER BY name";
         return doQuery($sql, [], $this->conn);
