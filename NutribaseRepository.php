@@ -36,12 +36,12 @@ class NutribaseRepository {
     
     public function getAllTags(): array {
         $sql = "SELECT id AS TagId, name AS TagName FROM tag ORDER BY name";
-        return doQuery($sql, [], $this->conn);
+        return $this->doQuery($sql, [], $this->conn);
     }
 
     public function getTagById(int $tagId): array {
         $sql = "SELECT tag.name AS tagName FROM tag WHERE tag.id = ? ORDER BY tag.name";
-        return doQuery($sql, [$tagId], $this->conn);
+        return $this->doQuery($sql, [$tagId], $this->conn);
     }
 
     public function getFoodsByTagId(int $tagId): array {
@@ -50,7 +50,7 @@ class NutribaseRepository {
                 INNER JOIN tagged_food ON tagged_food.food_id = food.id 
                 WHERE tagged_food.tag_id = ? 
                 ORDER BY food.name";
-        return doQuery($sql, [$tagId], $this->conn);
+        return $this->doQuery($sql, [$tagId], $this->conn);
     }
 
     public function getFoodById(int $foodId): array {
@@ -59,6 +59,6 @@ class NutribaseRepository {
                        protein_grams_per_unit AS protein, 
                        unit_caption_override AS override 
                 FROM food WHERE id = ?";
-        return doQuery($sql, [$foodId], $this->conn);
+        return $this->doQuery($sql, [$foodId], $this->conn);
     }
 }
