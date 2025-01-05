@@ -62,6 +62,7 @@ echo "put \"$LOCAL_DIR\\Nutribase.php\"" >> "$TMPFILE"
 echo "put \"$LOCAL_DIR\\NutribaseController.php\"" >> "$TMPFILE"
 echo "put \"$LOCAL_DIR\\NutribaseView.php\"" >> "$TMPFILE"
 echo "put \"$LOCAL_DIR\\NutribaseRepository.php\"" >> "$TMPFILE"
+echo "put \"$LOCAL_DIR\\phpinfo.php\"" >> "$TMPFILE"
 echo "put \"$LOCAL_DIR\\.htaccess\"" >> "$TMPFILE"
 echo "quit" >> "$TMPFILE"
 
