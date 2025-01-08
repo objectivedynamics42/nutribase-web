@@ -2,7 +2,7 @@
 
 define('APP_ROOT', __DIR__ . '/');
 
-require_once APP_ROOT . 'app/helpers/Helpers.php';
+require_once APP_ROOT . 'app/helpers/helpers.php';
 require_once APP_ROOT . 'app/repositories/NutribaseRepository.php';
 require_once APP_ROOT . 'app/controllers/NutribaseController.php';
 require_once APP_ROOT . 'app/views/NutribaseView.php';

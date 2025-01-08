@@ -1,5 +1,4 @@
 #!/bin/bash
-
 # Show usage information
 show_usage() {
     echo "Usage: $0 -u USERNAME -p PASSWORD [-h HOST] [-r REMOTE_DIR] [-l LOCAL_DIR]"
@@ -56,14 +55,36 @@ echo "$FTP_USER" >> "$TMPFILE"
 echo "$FTP_PASS" >> "$TMPFILE"
 echo "binary" >> "$TMPFILE"
 echo "cd $REMOTE_DIR" >> "$TMPFILE"
-echo "put \"$LOCAL_DIR\\.htaccess\"" >> "$TMPFILE"
+
+# Create directories if they don't exist
+echo "mkdir app" >> "$TMPFILE"
+echo "mkdir app/controllers" >> "$TMPFILE"
+echo "mkdir app/views" >> "$TMPFILE"
+echo "mkdir app/repositories" >> "$TMPFILE"
+echo "mkdir app/helpers" >> "$TMPFILE"
+
+# Upload root files
 echo "put \"$LOCAL_DIR\\config.php\"" >> "$TMPFILE"
-echo "put \"$LOCAL_DIR\\phpinfo.php\"" >> "$TMPFILE"
 echo "put \"$LOCAL_DIR\\Nutribase.php\"" >> "$TMPFILE"
-echo "put \"$LOCAL_DIR\\app\helpers\helpers.php\"" >> "$TMPFILE"
-echo "put \"$LOCAL_DIR\\app\controllers\NutribaseController.php\"" >> "$TMPFILE"
-echo "put \"$LOCAL_DIR\\app\views\NutribaseView.php\"" >> "$TMPFILE"
-echo "put \"$LOCAL_DIR\\app\repositories\NutribaseRepository.php\"" >> "$TMPFILE"
+echo "put \"$LOCAL_DIR\\phpinfo.php\"" >> "$TMPFILE"
+echo "put \"$LOCAL_DIR\\.htaccess\"" >> "$TMPFILE"
+
+# Upload files to new directories
+echo "cd app/helpers" >> "$TMPFILE"
+echo "put \"$LOCAL_DIR\\app\\helpers\\helpers.php\"" >> "$TMPFILE"
+echo "cd ../../" >> "$TMPFILE"
+
+echo "cd app/controllers" >> "$TMPFILE"
+echo "put \"$LOCAL_DIR\\app\\controllers\\NutribaseController.php\"" >> "$TMPFILE"
+echo "cd ../../" >> "$TMPFILE"
+
+echo "cd app/views" >> "$TMPFILE"
+echo "put \"$LOCAL_DIR\\app\\views\\NutribaseView.php\"" >> "$TMPFILE"
+echo "cd ../../" >> "$TMPFILE"
+
+echo "cd app/repositories" >> "$TMPFILE"
+echo "put \"$LOCAL_DIR\\app\\repositories\\NutribaseRepository.php\"" >> "$TMPFILE"
+
 echo "quit" >> "$TMPFILE"
 
 # Execute FTP commands using Windows ftp
@@ -71,5 +92,4 @@ echo "quit" >> "$TMPFILE"
 
 # Clean up
 rm "$TMPFILE"
-
 echo "Upload complete!"
