@@ -25,9 +25,20 @@ class NutribaseView {
                 "</div>" .
                 // Account icon on the right with same width as left column
                 "<div class=\"col d-flex justify-content-end\">" .
-                    "<a href=\"#\" class=\"btn btn-link text-white text-decoration-none\" aria-label=\"Account\">" .
-                        "<img src=\"/images/account.svg\" alt=\"\" width=\"30\" height=\"30\">" .
-                    "</a>" .
+                    "<div class=\"dropdown\">" .
+                        "<a href=\"#\" class=\"btn btn-link text-white text-decoration-none dropdown-toggle\" " .
+                        "id=\"accountDropdown\" " .
+                        "role=\"button\" " .
+                        "data-bs-toggle=\"dropdown\" " .
+                        "aria-expanded=\"false\" " .
+                        "aria-label=\"Account\">" .
+                            "<img src=\"/images/account.svg\" alt=\"Account\" width=\"30\" height=\"30\">" .
+                        "</a>" .
+                        "<ul class=\"dropdown-menu dropdown-menu-end\" aria-labelledby=\"accountDropdown\">" .
+                            "<li><a class=\"dropdown-item\" href=\"/login\">Log In</a></li>" .
+                            "<!-- Add more menu options here if needed -->" .
+                        "</ul>" .
+                    "</div>" .
                 "</div>" .
             "</div>" .
             // Subheading
