@@ -1,8 +1,5 @@
 <?php
 
-require_once 'NutribaseRepository.php';
-require_once 'NutribaseView.php';
-
 // Controller Layer - Handles request processing and orchestration
 class NutribaseController {
     private $repository;
