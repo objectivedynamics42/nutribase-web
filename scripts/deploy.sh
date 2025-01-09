@@ -57,6 +57,7 @@ echo "binary" >> "$TMPFILE"
 echo "cd $REMOTE_DIR" >> "$TMPFILE"
 
 # Create directories if they don't exist
+echo "mkdir diag" >> "$TMPFILE"
 echo "mkdir app" >> "$TMPFILE"
 echo "mkdir app/controllers" >> "$TMPFILE"
 echo "mkdir app/views" >> "$TMPFILE"
@@ -66,7 +67,6 @@ echo "mkdir app/helpers" >> "$TMPFILE"
 # Upload root files
 echo "put \"$LOCAL_DIR\\config.php\"" >> "$TMPFILE"
 echo "put \"$LOCAL_DIR\\Nutribase.php\"" >> "$TMPFILE"
-echo "put \"$LOCAL_DIR\\phpinfo.php\"" >> "$TMPFILE"
 echo "put \"$LOCAL_DIR\\.htaccess\"" >> "$TMPFILE"
 
 # Upload files to new directories
@@ -84,6 +84,11 @@ echo "cd ../../" >> "$TMPFILE"
 
 echo "cd app/repositories" >> "$TMPFILE"
 echo "put \"$LOCAL_DIR\\app\\repositories\\NutribaseRepository.php\"" >> "$TMPFILE"
+echo "cd ../../" >> "$TMPFILE"
+
+echo "cd diag" >> "$TMPFILE"
+echo "put \"$LOCAL_DIR\\diag\\phpinfo.php\"" >> "$TMPFILE"
+echo "cd ../../" >> "$TMPFILE"
 
 echo "quit" >> "$TMPFILE"
 
