@@ -80,6 +80,10 @@ echo "put \"$LOCAL_DIR\\app\\controllers\\FoodItemController.php\"" >> "$TMPFILE
 echo "cd ../../" >> "$TMPFILE"
 
 echo "cd app/controllers" >> "$TMPFILE"
+echo "put \"$LOCAL_DIR\\app\\controllers\\LoginController.php\"" >> "$TMPFILE"
+echo "cd ../../" >> "$TMPFILE"
+
+echo "cd app/controllers" >> "$TMPFILE"
 echo "put \"$LOCAL_DIR\\app\\controllers\\NutribaseController.php\"" >> "$TMPFILE"
 echo "cd ../../" >> "$TMPFILE"
 
@@ -94,6 +98,10 @@ echo "cd ../../" >> "$TMPFILE"
 # Views
 echo "cd app/views" >> "$TMPFILE"
 echo "put \"$LOCAL_DIR\\app\\views\\FoodItemView.php\"" >> "$TMPFILE"
+echo "cd ../../" >> "$TMPFILE"
+
+echo "cd app/views" >> "$TMPFILE"
+echo "put \"$LOCAL_DIR\\app\\views\\LoginView.php\"" >> "$TMPFILE"
 echo "cd ../../" >> "$TMPFILE"
 
 echo "cd app/views" >> "$TMPFILE"

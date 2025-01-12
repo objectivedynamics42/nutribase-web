@@ -4,9 +4,10 @@ define('APP_ROOT', __DIR__ . '/');
 
 require_once APP_ROOT . 'app/helpers/helpers.php';
 require_once APP_ROOT . 'app/repositories/NutribaseRepository.php';
+require_once APP_ROOT . 'app/controllers/FoodItemController.php';
+require_once APP_ROOT . 'app/controllers/LoginController.php';
 require_once APP_ROOT . 'app/controllers/TagsController.php';
 require_once APP_ROOT . 'app/controllers/TaggedFoodsController.php';
-require_once APP_ROOT . 'app/controllers/FoodItemController.php';
 require_once APP_ROOT . 'app/views/NutribaseView.php';
 
 // Database connection details
@@ -40,8 +41,8 @@ try {
             case '/nutribase/gettags':
             case '/nutribase':
             case '/':
-                $controller = new TagsController($repository);
-                $controller->getTags();
+                $tagsController = new TagsController($repository);
+                $tagsController->getTags();
                 break;
 
             case '/nutribase.php/getfoods':
@@ -50,8 +51,8 @@ try {
                     sendResponse(["error" => "Missing required parameter: tagid"], 'application/json', 400);
                     break;
                 }
-                $controller = new TaggedFoodsController($repository, (int)$query['tagid']);
-                $controller->getTaggedFoods();
+                $taggedFoodsController = new TaggedFoodsController($repository, (int)$query['tagid']);
+                $taggedFoodsController->getTaggedFoods();
                 break;
 
             case '/nutribase.php/getsinglefood':
@@ -60,12 +61,13 @@ try {
                     sendResponse(["error" => "Missing required parameter: foodid"], 'application/json', 400);
                     break;
                 }
-                $controller = new FoodItemController($repository, (int)$query['foodid']);
-                $controller->getFoodItem();
+                $foodItemController = new FoodItemController($repository, (int)$query['foodid']);
+                $foodItemController->getFoodItem();
                 break;
 
             case '/login':
-                $controller->login();
+                $loginController = new LoginController($repository);
+                $loginController->login();
                 break;
 
             default:
