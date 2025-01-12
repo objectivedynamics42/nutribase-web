@@ -9,8 +9,8 @@ class NutribaseController {
         $this->repository = $repository;
         $this->view = $view;
     }
-
-    public function getTags(): void {
+/*
+    public function geetTags(): void {
         try {
             $tags = $this->repository->getAllTags();
             $html = $this->view->renderTags($tags);
@@ -20,7 +20,7 @@ class NutribaseController {
         }
     }
 
-    public function getFoods(int $tagId): void {
+    public function geetFoods(int $tagId): void {
         try {
             $tagResult = $this->repository->getTagById($tagId);
             if (empty($tagResult)) {
@@ -36,7 +36,7 @@ class NutribaseController {
         }
     }
 
-    public function getSingleFood(int $foodId): void {
+    public function geetSingleFood(int $foodId): void {
         try {
             $food = $this->repository->getFoodById($foodId);
             if (empty($food)) {
@@ -50,5 +50,11 @@ class NutribaseController {
             sendResponse(["error" => $e->getMessage()], 'application/json', 500);
         }
     }
+
+    public function loogin(){
+        $html = "<html><body>Log In</body></html>";
+        sendResponse($html, 'text/html');
+    }
+*/        
 }
 

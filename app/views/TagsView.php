@@ -1,20 +1,13 @@
 <?php
 
-// View Layer - Handles HTML generation
-class NutribaseView {
+class TagsView {
     private function getAnchorForTaggedFoods(int $tagId, string $tagName): string {
         $url = "https://objectivedynamics.co.uk/nutribase/getFoods?tagId=" . $tagId;
         return "<a href=\"" . htmlspecialchars($url) . "\" class=\"text-decoration-none\">" . 
                htmlspecialchars($tagName) . "</a>";
     }
 
-    private function getAnchorForFood(int $foodId, string $foodName): string {
-        $url = "https://objectivedynamics.co.uk/nutribase/getSingleFood?foodId=" . $foodId;
-        return "<a href=\"" . htmlspecialchars($url) . "\" class=\"text-decoration-none\">" . 
-               htmlspecialchars($foodName) . "</a>";
-    }
-
-    public function renderNutribaseViewHeader(string $title): string {
+    private function renderHeader(string $title): string {
         return "<div class=\"container\">" .
             "<div class=\"row custom-blue-bg text-white py-3 align-items-center\">" .
                 // Left empty column for spacing
@@ -55,7 +48,7 @@ class NutribaseView {
     }
 
     public function renderTags(array $tags): string {
-        $content = $this->renderNutribaseViewHeader("Categories");
+        $content = $this->renderHeader("Categories");  
         $content .= "<div class=\"row mt-4\"><div class=\"col\"><ul class=\"list-group\">";
 
         foreach ($tags as $tag) {
@@ -64,7 +57,7 @@ class NutribaseView {
                 "</li>";
         }
 
-        $content .= "</ul></div></div>" . $this->renderFooter();
+        $content .= "</ul></div></div>" . "<!-- TagsView -->" . $this->renderFooter();
         return bootstrapWrap($content);
     }
 }

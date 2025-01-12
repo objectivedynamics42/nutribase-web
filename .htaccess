@@ -9,3 +9,7 @@ RewriteRule ^nutribase$ /nutribase.php [QSA,L]
 
 # Route /nutribase/endpoint to /nutribase.php/endpoint, preserving query parameters
 RewriteRule ^nutribase/(.+)$ /nutribase.php/$1 [QSA,L]
+
+# Route /login to /nutribase.php, preserving query parameters
+RewriteRule ^login$ /nutribase.php [QSA,L]
+

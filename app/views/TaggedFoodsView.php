@@ -1,20 +1,8 @@
 <?php
 
-// View Layer - Handles HTML generation
-class NutribaseView {
-    private function getAnchorForTaggedFoods(int $tagId, string $tagName): string {
-        $url = "https://objectivedynamics.co.uk/nutribase/getFoods?tagId=" . $tagId;
-        return "<a href=\"" . htmlspecialchars($url) . "\" class=\"text-decoration-none\">" . 
-               htmlspecialchars($tagName) . "</a>";
-    }
+class TaggedFoodsView {
 
-    private function getAnchorForFood(int $foodId, string $foodName): string {
-        $url = "https://objectivedynamics.co.uk/nutribase/getSingleFood?foodId=" . $foodId;
-        return "<a href=\"" . htmlspecialchars($url) . "\" class=\"text-decoration-none\">" . 
-               htmlspecialchars($foodName) . "</a>";
-    }
-
-    public function renderNutribaseViewHeader(string $title): string {
+    private function renderHeader(string $title): string {
         return "<div class=\"container\">" .
             "<div class=\"row custom-blue-bg text-white py-3 align-items-center\">" .
                 // Left empty column for spacing
@@ -54,13 +42,19 @@ class NutribaseView {
             "<script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js\"></script>";
     }
 
-    public function renderTags(array $tags): string {
-        $content = $this->renderNutribaseViewHeader("Categories");
+    private function getAnchorForFood(int $foodId, string $foodName): string {
+        $url = "https://objectivedynamics.co.uk/nutribase/getSingleFood?foodId=" . $foodId;
+        return "<a href=\"" . htmlspecialchars($url) . "\" class=\"text-decoration-none\">" . 
+               htmlspecialchars($foodName) . "</a>";
+    }
+
+    public function renderFoods(string $tagName, array $foods): string {
+        $content = $this->renderHeader($tagName);
         $content .= "<div class=\"row mt-4\"><div class=\"col\"><ul class=\"list-group\">";
 
-        foreach ($tags as $tag) {
+        foreach ($foods as $food) {
             $content .= "<li class=\"list-group-item text-center\">" .
-                $this->getAnchorForTaggedFoods($tag['TagId'], $tag['TagName']) .
+                $this->getAnchorForFood($food['FoodId'], $food['FoodName']) .
                 "</li>";
         }
 

@@ -4,7 +4,9 @@ define('APP_ROOT', __DIR__ . '/');
 
 require_once APP_ROOT . 'app/helpers/helpers.php';
 require_once APP_ROOT . 'app/repositories/NutribaseRepository.php';
-require_once APP_ROOT . 'app/controllers/NutribaseController.php';
+require_once APP_ROOT . 'app/controllers/TagsController.php';
+require_once APP_ROOT . 'app/controllers/TaggedFoodsController.php';
+require_once APP_ROOT . 'app/controllers/FoodItemController.php';
 require_once APP_ROOT . 'app/views/NutribaseView.php';
 
 // Database connection details
@@ -25,8 +27,7 @@ try {
     }
 
     $repository = new NutribaseRepository($conn);
-    $view = new NutribaseView();
-    $controller = new NutribaseController($repository, $view);
+//    $view = new NutribaseView();
 
     if (isset($_SERVER['REQUEST_URI'])) {
         $uri = strtolower(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
@@ -39,6 +40,7 @@ try {
             case '/nutribase/gettags':
             case '/nutribase':
             case '/':
+                $controller = new TagsController($repository);
                 $controller->getTags();
                 break;
 
@@ -48,7 +50,8 @@ try {
                     sendResponse(["error" => "Missing required parameter: tagid"], 'application/json', 400);
                     break;
                 }
-                $controller->getFoods((int)$query['tagid']);
+                $controller = new TaggedFoodsController($repository, (int)$query['tagid']);
+                $controller->getTaggedFoods();
                 break;
 
             case '/nutribase.php/getsinglefood':
@@ -57,7 +60,12 @@ try {
                     sendResponse(["error" => "Missing required parameter: foodid"], 'application/json', 400);
                     break;
                 }
-                $controller->getSingleFood((int)$query['foodid']);
+                $controller = new FoodItemController($repository, (int)$query['foodid']);
+                $controller->getFoodItem();
+                break;
+
+            case '/login':
+                $controller->login();
                 break;
 
             default:
