@@ -8,7 +8,6 @@ require_once APP_ROOT . 'app/controllers/FoodItemController.php';
 require_once APP_ROOT . 'app/controllers/LoginController.php';
 require_once APP_ROOT . 'app/controllers/TagsController.php';
 require_once APP_ROOT . 'app/controllers/TaggedFoodsController.php';
-require_once APP_ROOT . 'app/views/NutribaseView.php';
 
 // Database connection details
 $servername = "localhost";
@@ -28,7 +27,6 @@ try {
     }
 
     $repository = new NutribaseRepository($conn);
-//    $view = new NutribaseView();
 
     if (isset($_SERVER['REQUEST_URI'])) {
         $uri = strtolower(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
