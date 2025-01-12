@@ -2,12 +2,6 @@
 
 class FoodItemView {
 
-    private function renderFooter(): string {
-        return "</div>" .
-            "<script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js\"></script>";
-    }
-
-
     public function renderFoodItem(array $food): string {
         $content = renderHeader($food['FoodName']);
         $content .= "<div class=\"row mt-4\"><div class=\"col\"><ul class=\"list-group\">";
@@ -25,7 +19,7 @@ class FoodItemView {
             "<span class=\"ms-4\">" . htmlspecialchars($food['protein'] ?? '0.0') . "</span>" .
             "</li>";
 
-        $content .= "</ul></div></div>" . $this->renderFooter();
+        $content .= "</ul></div></div>" . renderFooter();
         return bootstrapWrap($content);
     }
 }

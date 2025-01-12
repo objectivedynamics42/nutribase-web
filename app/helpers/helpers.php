@@ -35,6 +35,11 @@ function renderHeader(string $title): string {
         "</div>";
 }
 
+function renderFooter(): string {
+    return "</div>" .
+        "<script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js\"></script>";
+}
+
 function bootstrapWrap(string $content): string {
     $bootstrapUrl = "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css";
 

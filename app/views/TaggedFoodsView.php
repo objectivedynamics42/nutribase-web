@@ -2,11 +2,6 @@
 
 class TaggedFoodsView {
 
-    private function renderFooter(): string {
-        return "</div>" .
-            "<script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js\"></script>";
-    }
-
     private function getAnchorForFood(int $foodId, string $foodName): string {
         $url = "https://objectivedynamics.co.uk/nutribase/getSingleFood?foodId=" . $foodId;
         return "<a href=\"" . htmlspecialchars($url) . "\" class=\"text-decoration-none\">" . 
@@ -23,7 +18,7 @@ class TaggedFoodsView {
                 "</li>";
         }
 
-        $content .= "</ul></div></div>" . $this->renderFooter();
+        $content .= "</ul></div></div>" . renderFooter();
         return bootstrapWrap($content);
     }
 }
