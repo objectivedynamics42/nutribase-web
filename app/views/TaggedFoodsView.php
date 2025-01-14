@@ -3,7 +3,7 @@
 class TaggedFoodsView {
 
     private function getAnchorForFood(int $foodId, string $foodName): string {
-        $url = "https://objectivedynamics.co.uk/nutribase/getSingleFood?foodId=" . $foodId;
+        $url = "https://objectivedynamics.co.uk/nutribase/getfooditem?foodId=" . $foodId;
         return "<a href=\"" . htmlspecialchars($url) . "\" class=\"text-decoration-none\">" . 
                htmlspecialchars($foodName) . "</a>";
     }

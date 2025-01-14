@@ -12,7 +12,9 @@ class TagsController {
     }
 
     public function getTags(): void {
+        Logger::log("Processing tags request");
         try {
+            syslog(LOG_ERR, "getTags called");            
             $tags = $this->repository->getAllTags();
             $html = $this->view->renderTags($tags);
             sendResponse($html, 'text/html');

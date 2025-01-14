@@ -70,6 +70,13 @@ echo "put \"$LOCAL_DIR\\Nutribase.php\"" >> "$TMPFILE"
 echo "put \"$LOCAL_DIR\\.htaccess\"" >> "$TMPFILE"
 
 # Upload files to new directories
+
+# App
+echo "cd app" >> "$TMPFILE"
+echo "put \"$LOCAL_DIR\\app\\Logger.php\"" >> "$TMPFILE"
+echo "cd ../" >> "$TMPFILE"
+
+# Helpers
 echo "cd app/helpers" >> "$TMPFILE"
 echo "put \"$LOCAL_DIR\\app\\helpers\\helpers.php\"" >> "$TMPFILE"
 echo "cd ../../" >> "$TMPFILE"

@@ -14,6 +14,7 @@ class FoodItemController {
     }
 
     public function getFoodItem(): void {
+        Logger::log("Processing food item request");
         try {
             $food = $this->repository->getFoodById( $this->foodId);
             if (empty($food)) {

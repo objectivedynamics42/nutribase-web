@@ -14,6 +14,7 @@ class TaggedFoodsController {
     }
     
     public function getTaggedFoods(): void {
+        Logger::log("Processing tagged foods request");
         try {
             $tagResult = $this->repository->getTagById($this->tagId);
             if (empty($tagResult)) {
