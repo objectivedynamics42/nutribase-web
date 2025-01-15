@@ -1,2 +1,4 @@
-UPDATE `food` SET `protein_grams_per_unit` = 3.1 where food.id = 29
-
+UPDATE food
+   SET food.protein_grams_per_unit = 2.5,
+       food.name = 'Apricot - Dried, Alesto'
+   WHERE food.name LIKE '%apricot - dried%';
