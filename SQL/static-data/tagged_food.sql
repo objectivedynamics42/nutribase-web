@@ -29,124 +29,104 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `tagged_food` (
   `food_id` int(11) NOT NULL,
-  `tag_id` int(11) NOT NULL
+  `tag_id` int(11) NOT NULL,
+  PRIMARY KEY (`food_id`,`tag_id`),
+  KEY `fk_tag_id` (`tag_id`),
+  CONSTRAINT `fk_food_id` FOREIGN KEY (`food_id`) REFERENCES `food` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_tag_id` FOREIGN KEY (`tag_id`) REFERENCES `tag` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `tagged_food`
---
-
-INSERT INTO `tagged_food` (`food_id`, `tag_id`) VALUES
-(8, 1),
-(9, 1),
-(10, 2),
-(11, 2),
-(12, 2),
-(13, 2),
-(14, 2),
-(15, 2),
-(16, 2),
-(17, 2),
-(18, 2),
-(19, 2),
-(20, 2),
-(84, 3),
-(85, 3),
-(86, 3),
-(87, 3),
-(22, 4),
-(23, 4),
-(24, 4),
-(25, 4),
-(26, 4),
-(27, 4),
-(28, 4),
-(29, 4),
-(30, 4),
-(31, 4),
-(32, 4),
-(33, 4),
-(34, 4),
-(35, 4),
-(36, 4),
-(37, 4),
-(38, 4),
-(39, 4),
-(40, 4),
-(41, 4),
-(42, 4),
-(43, 4),
-(44, 4),
-(45, 4),
-(46, 5),
-(47, 5),
-(48, 5),
-(51, 5),
-(1, 6),
-(2, 6),
-(49, 6),
-(7, 7),
-(81, 8),
-(50, 9),
-(52, 9),
-(53, 9),
-(82, 9),
-(83, 9),
-(3, 10),
-(4, 11),
-(5, 11),
-(6, 11),
-(21, 12),
-(54, 13),
-(55, 13),
-(56, 13),
-(57, 13),
-(58, 13),
-(59, 13),
-(60, 13),
-(61, 13),
-(62, 13),
-(63, 13),
-(64, 13),
-(65, 13),
-(66, 13),
-(67, 13),
-(68, 13),
-(69, 13),
-(70, 13),
-(71, 13),
-(72, 13),
-(73, 13),
-(74, 13),
-(75, 13),
-(76, 13),
-(77, 13),
-(78, 13),
-(79, 13),
-(80, 13);
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `tagged_food`
---
-ALTER TABLE `tagged_food`
-  ADD PRIMARY KEY (`food_id`,`tag_id`),
-  ADD KEY `fk_tag_id` (`tag_id`);
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `tagged_food`
---
-ALTER TABLE `tagged_food`
-  ADD CONSTRAINT `fk_food_id` FOREIGN KEY (`food_id`) REFERENCES `food` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `fk_tag_id` FOREIGN KEY (`tag_id`) REFERENCES `tag` (`id`) ON DELETE CASCADE;
-COMMIT;
+INSERT INTO `tagged_food` (`food_id`, `tag_id`)
+SELECT f.id, t.id
+FROM food f, tag t
+WHERE 
+  (f.name = 'Ryvita - Fruity' AND t.name = 'Bakery') OR
+  (f.name = 'Bread - Wholemeal' AND t.name = 'Bakery') OR
+  (f.name = 'Eggs - Large' AND t.name = 'Dairy') OR
+  (f.name = 'Eggs - Medium' AND t.name = 'Dairy') OR
+  (f.name = 'Parmesan' AND t.name = 'Dairy') OR
+  (f.name = 'Spread Cheese - Full Fat' AND t.name = 'Dairy') OR
+  (f.name = 'Spread Cheese - Light' AND t.name = 'Dairy') OR
+  (f.name = 'Greek Yoghurt - Milbona (LIDL) - Full Fat' AND t.name = 'Dairy') OR
+  (f.name = 'Milk - UHT Full Fat - Tesco' AND t.name = 'Dairy') OR
+  (f.name = 'Milk - Oat - Homemade' AND t.name = 'Dairy') OR
+  (f.name = 'Milk - UHT Skimmed - Dairy Manor (LIDL)' AND t.name = 'Dairy') OR
+  (f.name = 'Milk - Soya' AND t.name = 'Dairy') OR
+  (f.name = 'Milk - Oat - Vemondo' AND t.name = 'Dairy') OR
+  (f.name = 'Anchovies' AND t.name = 'Fish') OR
+  (f.name = 'Mackerel in Sauce - Nixe (LIDL) - In Spicy Tomato Sauce' AND t.name = 'Fish') OR
+  (f.name = 'Mackerel in Sauce - Sainsbury\'s - In Spicy Jerk Sauce' AND t.name = 'Fish') OR
+  (f.name = 'Tuna - Nixe (LIDL) In Brine' AND t.name = 'Fish') OR
+  (f.name = 'Apple - Fresh' AND t.name = 'Fruit') OR
+  (f.name = 'Apple - Stewed' AND t.name = 'Fruit') OR
+  (f.name = 'Apricot - Dried, Alesto' AND t.name = 'Fruit') OR
+  (f.name = 'Apricot - With Stone' AND t.name = 'Fruit') OR
+  (f.name = 'Banana' AND t.name = 'Fruit') OR
+  (f.name = 'Blackberries' AND t.name = 'Fruit') OR
+  (f.name = 'Dates - Dried, Alesto' AND t.name = 'Fruit') OR
+  (f.name = 'Figs - Dried, Alesto' AND t.name = 'Fruit') OR
+  (f.name = 'Figs - Fresh' AND t.name = 'Fruit') OR
+  (f.name = 'Grapes' AND t.name = 'Fruit') OR
+  (f.name = 'Kiwi' AND t.name = 'Fruit') OR
+  (f.name = 'Mango' AND t.name = 'Fruit') OR
+  (f.name = 'Melon' AND t.name = 'Fruit') OR
+  (f.name = 'Mixed Berries - Frozen' AND t.name = 'Fruit') OR
+  (f.name = 'Nectarine' AND t.name = 'Fruit') OR
+  (f.name = 'Peach' AND t.name = 'Fruit') OR
+  (f.name = 'Peaches and Nectarines - Frozen' AND t.name = 'Fruit') OR
+  (f.name = 'Pear' AND t.name = 'Fruit') OR
+  (f.name = 'Persimmon' AND t.name = 'Fruit') OR
+  (f.name = 'Pineapple - Frozen' AND t.name = 'Fruit') OR
+  (f.name = 'Plum' AND t.name = 'Fruit') OR
+  (f.name = 'Rhubarb - stewed' AND t.name = 'Fruit') OR
+  (f.name = 'Strawberries' AND t.name = 'Fruit') OR
+  (f.name = 'Tangerine - Flesh Only' AND t.name = 'Fruit') OR
+  (f.name = 'Bran - Whole' AND t.name = 'Grains') OR
+  (f.name = 'Bran - Kellogs' AND t.name = 'Grains') OR
+  (f.name = 'Granola - Lizi\'s' AND t.name = 'Grains') OR
+  (f.name = 'Porridge - Mornflake' AND t.name = 'Grains') OR
+  (f.name = 'Chickpeas - Freshona (LIDL) - In Water' AND t.name = 'Legumes') OR
+  (f.name = 'Kidney Beans' AND t.name = 'Legumes') OR
+  (f.name = 'Lentils Green - Dried' AND t.name = 'Legumes') OR
+  (f.name = 'Chicken Breast' AND t.name = 'Meat') OR
+  (f.name = 'Rapeseed Oil' AND t.name = 'Oil') OR
+  (f.name = 'Nuts - Mixed - (Lidl)' AND t.name = 'Packaged') OR
+  (f.name = 'Seed - Mixed - Holland & Barrett' AND t.name = 'Packaged') OR
+  (f.name = 'Seed - Mixed - Alesto (LIDL)' AND t.name = 'Packaged') OR
+  (f.name = 'Lime Pickle' AND t.name = 'Packaged') OR
+  (f.name = 'Pesto - Green' AND t.name = 'Packaged') OR
+  (f.name = 'Tagliatelli - Dried, Sainsbury\'s' AND t.name = 'Pasta') OR
+  (f.name = 'Rice - Basmati, Dried' AND t.name = 'Rice') OR
+  (f.name = 'Rice - Wholegrain, dried' AND t.name = 'Rice') OR
+  (f.name = 'Rice - Wholegrain, cooked' AND t.name = 'Rice') OR
+  (f.name = 'PhD Whey Protein Powder' AND t.name = 'Supplements') OR
+  (f.name = 'Asparagus' AND t.name = 'Vegetables') OR
+  (f.name = 'Aubergine' AND t.name = 'Vegetables') OR
+  (f.name = 'Broccoli' AND t.name = 'Vegetables') OR
+  (f.name = 'Butternut Squash' AND t.name = 'Vegetables') OR
+  (f.name = 'Cabbage' AND t.name = 'Vegetables') OR
+  (f.name = 'Carrot' AND t.name = 'Vegetables') OR
+  (f.name = 'Cauliflower' AND t.name = 'Vegetables') OR
+  (f.name = 'Celery' AND t.name = 'Vegetables') OR
+  (f.name = 'Garlic - Fresh' AND t.name = 'Vegetables') OR
+  (f.name = 'Garlic - Paste' AND t.name = 'Vegetables') OR
+  (f.name = 'Ginger - Paste' AND t.name = 'Vegetables') OR
+  (f.name = 'Mushrooms' AND t.name = 'Vegetables') OR
+  (f.name = 'Olives' AND t.name = 'Vegetables') OR
+  (f.name = 'Onion' AND t.name = 'Vegetables') OR
+  (f.name = 'Peas - Frozen' AND t.name = 'Vegetables') OR
+  (f.name = 'Pepper - Red' AND t.name = 'Vegetables') OR
+  (f.name = 'Pepper - Yellow' AND t.name = 'Vegetables') OR
+  (f.name = 'Potatoes - baby' AND t.name = 'Vegetables') OR
+  (f.name = 'Runner Beans' AND t.name = 'Vegetables') OR
+  (f.name = 'Sprouts' AND t.name = 'Vegetables') OR
+  (f.name = 'Swede' AND t.name = 'Vegetables') OR
+  (f.name = 'Sweet Potato' AND t.name = 'Vegetables') OR
+  (f.name = 'Sweetcorn - Frozen' AND t.name = 'Vegetables') OR
+  (f.name = 'Tomatoes - Tinned - Chopped' AND t.name = 'Vegetables') OR
+  (f.name = 'Tomtatoes - Fresh' AND t.name = 'Vegetables') OR
+  (f.name = 'Tomatoes - Passata' AND t.name = 'Vegetables') OR
+  (f.name = 'Tomatoes - Sun Dried' AND t.name = 'Vegetables');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

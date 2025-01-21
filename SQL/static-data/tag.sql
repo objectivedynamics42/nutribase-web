@@ -28,39 +28,26 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `tag` (
-  `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `tag`
---
-
-INSERT INTO `tag` (`id`, `name`) VALUES
-(1, 'Bakery'),
-(2, 'Dairy'),
-(3, 'Fish'),
-(4, 'Fruit'),
-(5, 'Grains'),
-(6, 'Legumes'),
-(7, 'Meat'),
-(8, 'Oil'),
-(9, 'Packaged'),
-(10, 'Pasta'),
-(11, 'Rice'),
-(12, 'Supplements'),
-(13, 'Vegetables');
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `tag`
---
-ALTER TABLE `tag`
-  ADD PRIMARY KEY (`id`);
-COMMIT;
+-- Complete tag inserts without IDs
+INSERT INTO `tag` (`name`) VALUES
+('Bakery'),
+('Dairy'),
+('Fish'),
+('Fruit'),
+('Grains'),
+('Legumes'),
+('Meat'),
+('Oil'),
+('Packaged'),
+('Pasta'),
+('Rice'),
+('Supplements'),
+('Vegetables');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
