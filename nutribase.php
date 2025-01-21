@@ -2,10 +2,13 @@
 
 define('APP_ROOT', __DIR__ . '/');
 
+require_once APP_ROOT . 'app/Logger.php';
 require_once APP_ROOT . 'app/helpers/helpers.php';
 require_once APP_ROOT . 'app/repositories/NutribaseRepository.php';
-require_once APP_ROOT . 'app/controllers/NutribaseController.php';
-require_once APP_ROOT . 'app/views/NutribaseView.php';
+require_once APP_ROOT . 'app/controllers/FoodItemController.php';
+require_once APP_ROOT . 'app/controllers/LoginController.php';
+require_once APP_ROOT . 'app/controllers/TagsController.php';
+require_once APP_ROOT . 'app/controllers/TaggedFoodsController.php';
 
 // Database connection details
 $servername = "localhost";
@@ -19,14 +22,13 @@ ini_set('log_errors', 1);
 ini_set('error_log', '/error.log');  // Adjust path as needed
 
 try {
+    Logger::log("Request recieved");
     $conn = new mysqli($servername, $username, $password, $dbname);
     if ($conn->connect_error) {
         throw new Exception("Connection failed: " . $conn->connect_error);
     }
 
     $repository = new NutribaseRepository($conn);
-    $view = new NutribaseView();
-    $controller = new NutribaseController($repository, $view);
 
     if (isset($_SERVER['REQUEST_URI'])) {
         $uri = strtolower(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
@@ -34,12 +36,15 @@ try {
         parse_str(parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY), $query);
         $query = array_change_key_case($query, CASE_LOWER);
 
+        Logger::log("Checking request uri: " . $uri);
+        
         switch ($uri) {
             case '/nutribase.php/gettags':
             case '/nutribase/gettags':
             case '/nutribase':
             case '/':
-                $controller->getTags();
+                $tagsController = new TagsController($repository);
+                $tagsController->getTags();
                 break;
 
             case '/nutribase.php/getfoods':
@@ -48,16 +53,41 @@ try {
                     sendResponse(["error" => "Missing required parameter: tagid"], 'application/json', 400);
                     break;
                 }
-                $controller->getFoods((int)$query['tagid']);
+                $taggedFoodsController = new TaggedFoodsController($repository, (int)$query['tagid']);
+                $taggedFoodsController->getTaggedFoods();
                 break;
 
-            case '/nutribase.php/getsinglefood':
-            case '/nutribase/getsinglefood':
+            case '/nutribase.php/getfooditem':
+            case '/nutribase/getfooditem':
                 if (!isset($query['foodid'])) {
                     sendResponse(["error" => "Missing required parameter: foodid"], 'application/json', 400);
                     break;
                 }
-                $controller->getSingleFood((int)$query['foodid']);
+                $foodItemController = new FoodItemController($repository, (int)$query['foodid']);
+                $foodItemController->getFoodItem();
+                break;
+
+            case '/login':
+                $loginController = new LoginController($repository);
+                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                    // Check if username and password were submitted
+                    if (!isset($_POST['username']) || !isset($_POST['password'])) {
+                        sendResponse([
+                            "error" => "Missing required fields: username and password"
+                        ], 'application/json', 400);
+                        break;
+                    }
+                    
+                    // Sanitize inputs
+                    $username = filter_var($_POST['username'], FILTER_SANITIZE_STRING);
+                    $password = $_POST['password']; // Don't sanitize password as it might contain special chars
+                    
+                    // Handle login attempt
+                    $loginController->handleLogin($username, $password);
+                } else {
+                    // GET request - show login form
+                    $loginController->login();
+                }
                 break;
 
             default:

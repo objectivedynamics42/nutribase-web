@@ -70,22 +70,58 @@ echo "put \"$LOCAL_DIR\\Nutribase.php\"" >> "$TMPFILE"
 echo "put \"$LOCAL_DIR\\.htaccess\"" >> "$TMPFILE"
 
 # Upload files to new directories
+
+# App
+echo "cd app" >> "$TMPFILE"
+echo "put \"$LOCAL_DIR\\app\\Logger.php\"" >> "$TMPFILE"
+echo "cd ../" >> "$TMPFILE"
+
+# Helpers
 echo "cd app/helpers" >> "$TMPFILE"
 echo "put \"$LOCAL_DIR\\app\\helpers\\helpers.php\"" >> "$TMPFILE"
 echo "cd ../../" >> "$TMPFILE"
 
+# Controllers
 echo "cd app/controllers" >> "$TMPFILE"
-echo "put \"$LOCAL_DIR\\app\\controllers\\NutribaseController.php\"" >> "$TMPFILE"
+echo "put \"$LOCAL_DIR\\app\\controllers\\FoodItemController.php\"" >> "$TMPFILE"
+echo "cd ../../" >> "$TMPFILE"
+
+echo "cd app/controllers" >> "$TMPFILE"
+echo "put \"$LOCAL_DIR\\app\\controllers\\LoginController.php\"" >> "$TMPFILE"
+echo "cd ../../" >> "$TMPFILE"
+
+echo "cd app/controllers" >> "$TMPFILE"
+echo "put \"$LOCAL_DIR\\app\\controllers\\TaggedFoodsController.php\"" >> "$TMPFILE"
+echo "cd ../../" >> "$TMPFILE"
+
+echo "cd app/controllers" >> "$TMPFILE"
+echo "put \"$LOCAL_DIR\\app\\controllers\\TagsController.php\"" >> "$TMPFILE"
+echo "cd ../../" >> "$TMPFILE"
+
+# Views
+echo "cd app/views" >> "$TMPFILE"
+echo "put \"$LOCAL_DIR\\app\\views\\FoodItemView.php\"" >> "$TMPFILE"
 echo "cd ../../" >> "$TMPFILE"
 
 echo "cd app/views" >> "$TMPFILE"
-echo "put \"$LOCAL_DIR\\app\\views\\NutribaseView.php\"" >> "$TMPFILE"
+echo "put \"$LOCAL_DIR\\app\\views\\LoginView.php\"" >> "$TMPFILE"
 echo "cd ../../" >> "$TMPFILE"
 
+echo "cd app/views" >> "$TMPFILE"
+echo "put \"$LOCAL_DIR\\app\\views\\TaggedFoodsView.php\"" >> "$TMPFILE"
+echo "cd ../../" >> "$TMPFILE"
+
+echo "cd app/views" >> "$TMPFILE"
+echo "put \"$LOCAL_DIR\\app\\views\\TagsView.php\"" >> "$TMPFILE"
+echo "cd ../../" >> "$TMPFILE"
+
+
+# Repositories
 echo "cd app/repositories" >> "$TMPFILE"
 echo "put \"$LOCAL_DIR\\app\\repositories\\NutribaseRepository.php\"" >> "$TMPFILE"
 echo "cd ../../" >> "$TMPFILE"
 
+# Diagnostics
 echo "cd diag" >> "$TMPFILE"
 echo "put \"$LOCAL_DIR\\diag\\phpinfo.php\"" >> "$TMPFILE"
 echo "cd ../../" >> "$TMPFILE"
