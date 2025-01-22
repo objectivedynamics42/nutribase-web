@@ -22,7 +22,7 @@ class FoodItemController {
                 return;
             }
 
-            $html = $this->view->renderFoodItem($food[0]);
+            $html = $this->view->renderFoodItem("1", $food[0]);//TODO replace 1 with an appropriate tag value
             sendResponse($html, 'text/html');
         } catch (Exception $e) {
             sendResponse(["error" => $e->getMessage()], 'application/json', 500);

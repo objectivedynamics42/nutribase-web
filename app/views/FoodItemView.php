@@ -2,8 +2,9 @@
 
 class FoodItemView {
 
-    public function renderFoodItem(array $food): string {
-        $content = renderHeader($food['FoodName']);
+    public function renderFoodItem(string $tagId, array $food): string {
+        $backPage = "/nutribase/getFoods?tagId=". $tagId;
+        $content = renderHeader($backPage, $food['FoodName']);
         $content .= "<div class=\"row mt-4\"><div class=\"col\"><ul class=\"list-group\">";
 
         $unit = $food['override'] ?? 'Per 100g';

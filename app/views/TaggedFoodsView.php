@@ -9,7 +9,8 @@ class TaggedFoodsView {
     }
 
     public function renderFoods(string $tagName, array $foods): string {
-        $content = renderHeader($tagName);
+        $backPage = "/nutribase";//TODO refactor so that we don't have to specify nutribase everywhere
+        $content = renderHeader($backPage, $tagName);
         $content .= "<div class=\"row mt-4\"><div class=\"col\"><ul class=\"list-group\">";
 
         foreach ($foods as $food) {

@@ -2,7 +2,7 @@
 class LoginView {
 
     public function renderLogin(): string {
-        $content = renderHeader("Login");  
+        $content = renderHeader("/nutribase", "Login");  //TODO what backPage shoujld we use here?
         $content .= "<div class=\"row mt-4\"><div class=\"col\"><ul class=\"list-group\">";
 
         $form = "<div class=\"row justify-content-center mt-4\">
@@ -28,7 +28,7 @@ class LoginView {
     }
 
     public function renderLoggedIn(){
-        $content = renderHeader("Logged in");  
+        $content = renderHeader("/nutribase", "Logged in");  //TODO what backPage should we use here?
         $content .= "<div class=\"row mt-4\"><div class=\"col\"><ul class=\"list-group\">";
 
         $content .= "</ul></div></div>" . "<!-- LoginView -->" . renderFooter();
