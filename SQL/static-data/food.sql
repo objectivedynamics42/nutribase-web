@@ -36,6 +36,8 @@ INSERT INTO `food` (`name`, `kcal_per_unit`, `protein_grams_per_unit`, `unit_cap
 ('Chickpeas - Freshona (LIDL) - In Water', 125.00, 6.40, NULL),
 ('Kidney Beans', 93.00, 7.20, NULL),
 ('Tagliatelli - Dried, Sainsbury\'s', 358.00, NULL, NULL),
+('Fusili - Cooked, Baresa (LIDL)', 158.00, NULL, NULL),
+('Fusili - Dried, Baresa (LIDL)', 358.00, NULL, NULL),
 ('Rice - Basmati, Dried', 351.00, NULL, NULL),
 ('Rice - Basmati, Cooked', 143.00, NULL, NULL),
 ('Rice - Wholegrain, dried', 280.00, NULL, NULL),
