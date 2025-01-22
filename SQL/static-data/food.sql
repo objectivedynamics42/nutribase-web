@@ -37,6 +37,7 @@ INSERT INTO `food` (`name`, `kcal_per_unit`, `protein_grams_per_unit`, `unit_cap
 ('Kidney Beans', 93.00, 7.20, NULL),
 ('Tagliatelli - Dried, Sainsbury\'s', 358.00, NULL, NULL),
 ('Rice - Basmati, Dried', 351.00, NULL, NULL),
+('Rice - Basmati, Cooked', 143.00, NULL, NULL),
 ('Rice - Wholegrain, dried', 280.00, NULL, NULL),
 ('Rice - Wholegrain, cooked', 4321.00, NULL, NULL),
 ('Chicken Breast', 106.00, 32.00, NULL),
