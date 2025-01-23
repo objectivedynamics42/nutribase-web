@@ -63,16 +63,19 @@ try {
 
             case '/nutribase.php/getfooditem':
             case '/nutribase/getfooditem':
-                if (!isset($query['foodid'])) {
+
+                $foodId = $query['foodid'];
+                if (!isset($foodId)) {
                     sendResponse(["error" => "Missing required parameter: foodid"], 'application/json', 400);
                     break;
                 }
-                if (!isset($query['tagid'])) {
+                $backLinkTagId = $query['tagid'];
+                if (!isset($backLinkTagId)) {
                     sendResponse(["error" => "Missing required parameter: tagid"], 'application/json', 400);
                     break;
                 }
 
-                $foodItemController = new FoodItemController($repository, (int)$query['foodid'], (int)$query['tagid']);
+                $foodItemController = new FoodItemController($repository, (int)$foodId, (int)$backLinkTagId);
                 $foodItemController->getFoodItem();
                 break;
 
