@@ -50,13 +50,14 @@ try {
             case '/nutribase.php/getfoods':
             case '/nutribase/getfoods':
 
+                $tagID = $query['tagid'];
+                Logger::log("Request for /nutribase/getfoods with tagId: " . $tagID);
 
-                //TODO refactor $query['tagid']) to a variable
-                if (!isset($query['tagid'])) {
+                if (!isset($tagID)) {
                     sendResponse(["error" => "Missing required parameter: tagid"], 'application/json', 400);
                     break;
                 }
-                $taggedFoodsController = new TaggedFoodsController($repository, (int)$query['tagid']);
+                $taggedFoodsController = new TaggedFoodsController($repository, (int)$tagID);
                 $taggedFoodsController->getTaggedFoods();
                 break;
 

@@ -3,7 +3,7 @@
 class FoodItemView {
 
     public function renderFoodItem(string $tagId, array $food): string {
-        $backPage = "/nutribase/getFoods?tagId=". $tagId;
+        $backPage = "/nutribase/getFoods?tagId=". $tagId;//TODO refactor so that we don't have to specify nutribase everywhere
         $content = renderHeader($backPage, $food['FoodName']);
         $content .= "<div class=\"row mt-4\"><div class=\"col\"><ul class=\"list-group\">";
 
