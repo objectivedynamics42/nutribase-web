@@ -1,12 +1,12 @@
 <?php
 
-function renderHeader(string $backPage, string $title): string {
+function renderHeader(string $backLinkHref, string $title): string {
     return "<!-- helpers.renderHeader -->" .
         "<div class=\"container\">" .
             "<div class=\"row custom-blue-bg text-white py-3 align-items-center\">" .
                 // Left empty column for spacing
                 "<div class=\"col d-flex justify-content-start\">" .
-                    "<a href=" . $backPage . " class=\"btn btn-link text-white text-decoration-none\" aria-label=\"Go back\">" .
+                    "<a href=" . $backLinkHref . " class=\"btn btn-link text-white text-decoration-none\" aria-label=\"Go back\">" .
                       "<img src=\"/images/back-svgrepo-com.svg\" alt=\"Go back\" width=\"30\" height=\"30\">" .
                     "</a>" .
                 "</div>" .

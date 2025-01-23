@@ -22,8 +22,10 @@ class TaggedFoodsController {
                 return;
             }
 
+            Logger::log("getTaggedFoods - tagId: " . $this->tagId);
+
             $foods = $this->repository->getFoodsByTagId($this->tagId);
-            $html = $this->view->renderFoods($tagResult[0]['tagName'], $foods);
+            $html = $this->view->renderFoods($this->tagId, $tagResult[0]['tagName'], $foods);
             sendResponse($html, 'text/html');
         } catch (Exception $e) {
             sendResponse(["error" => $e->getMessage()], 'application/json', 500);
