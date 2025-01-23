@@ -8,8 +8,8 @@ class TagsView {
     }
 
     public function renderTags(array $tags): string {
-        $backPage = "/";
-        $content = renderHeader($backPage, "Categories");  
+        $backLink = "";
+        $content = renderHeader($backLink, "Categories");  
         $content .= "<div class=\"row mt-4\"><div class=\"col\"><ul class=\"list-group\">";
 
         foreach ($tags as $tag) {

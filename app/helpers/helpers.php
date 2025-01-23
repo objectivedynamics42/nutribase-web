@@ -1,14 +1,21 @@
 <?php
 
 function renderHeader(string $backLinkHref, string $title): string {
+
+    $backLink = "";
+
+    if( !empty($backLinkHref)){
+        $backLink = "<a href=" . $backLinkHref . " class=\"btn btn-link text-white text-decoration-none\" aria-label=\"Go back\">" .
+        "<img src=\"/images/back-svgrepo-com.svg\" alt=\"Go back\" width=\"30\" height=\"30\">" .
+      "</a>";
+    }
+
     return "<!-- helpers.renderHeader -->" .
         "<div class=\"container\">" .
             "<div class=\"row custom-blue-bg text-white py-3 align-items-center\">" .
                 // Left empty column for spacing
                 "<div class=\"col d-flex justify-content-start\">" .
-                    "<a href=" . $backLinkHref . " class=\"btn btn-link text-white text-decoration-none\" aria-label=\"Go back\">" .
-                      "<img src=\"/images/back-svgrepo-com.svg\" alt=\"Go back\" width=\"30\" height=\"30\">" .
-                    "</a>" .
+                    $backLink .
                 "</div>" .
                 // Centered heading
                 "<div class=\"col-auto text-center\">" .
