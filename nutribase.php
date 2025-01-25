@@ -4,6 +4,7 @@ define('APP_ROOT', __DIR__ . '/');
 
 require_once APP_ROOT . 'app/Logger.php';
 require_once APP_ROOT . 'app/helpers/helpers.php';
+require_once APP_ROOT . 'app/helpers/SharedConstants.php';
 require_once APP_ROOT . 'app/repositories/NutribaseRepository.php';
 require_once APP_ROOT . 'app/controllers/FoodItemController.php';
 require_once APP_ROOT . 'app/controllers/LoginController.php';
@@ -49,21 +50,33 @@ try {
 
             case '/nutribase.php/getfoods':
             case '/nutribase/getfoods':
-                if (!isset($query['tagid'])) {
+
+                $tagID = $query['tagid'];
+                Logger::log("Request for /nutribase/getfoods with tagId: " . $tagID);
+
+                if (!isset($tagID)) {
                     sendResponse(["error" => "Missing required parameter: tagid"], 'application/json', 400);
                     break;
                 }
-                $taggedFoodsController = new TaggedFoodsController($repository, (int)$query['tagid']);
+                $taggedFoodsController = new TaggedFoodsController($repository, (int)$tagID);
                 $taggedFoodsController->getTaggedFoods();
                 break;
 
             case '/nutribase.php/getfooditem':
             case '/nutribase/getfooditem':
-                if (!isset($query['foodid'])) {
+
+                $foodId = $query['foodid'];
+                if (!isset($foodId)) {
                     sendResponse(["error" => "Missing required parameter: foodid"], 'application/json', 400);
                     break;
                 }
-                $foodItemController = new FoodItemController($repository, (int)$query['foodid']);
+                $backLinkTagId = $query['tagid'];
+                if (!isset($backLinkTagId)) {
+                    sendResponse(["error" => "Missing required parameter: tagid"], 'application/json', 400);
+                    break;
+                }
+
+                $foodItemController = new FoodItemController($repository, (int)$foodId, (int)$backLinkTagId);
                 $foodItemController->getFoodItem();
                 break;
 

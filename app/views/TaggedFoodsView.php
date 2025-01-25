@@ -2,19 +2,26 @@
 
 class TaggedFoodsView {
 
-    private function getAnchorForFood(int $foodId, string $foodName): string {
-        $url = "https://objectivedynamics.co.uk/nutribase/getfooditem?foodId=" . $foodId;
+    private function renderFoodAnchor(int $foodId, string $foodName, string $tagId): string {
+        $url = "https://objectivedynamics.co.uk/nutribase/getfooditem?foodId=" . $foodId . "&tagId=" . $tagId;
         return "<a href=\"" . htmlspecialchars($url) . "\" class=\"text-decoration-none\">" . 
                htmlspecialchars($foodName) . "</a>";
     }
 
-    public function renderFoods(string $tagName, array $foods): string {
-        $content = renderHeader($tagName);
+    private function renderTaggedFoodsBackLink(): string {
+        return  SharedConstants::BASE_ADDRESS;
+    }
+
+    public function renderFoods(string $tagId, string $tagName, array $foods): string {
+        $backLinkHref = $this->renderTaggedFoodsBackLink();
+        $content = renderHeader($backLinkHref, $tagName);
         $content .= "<div class=\"row mt-4\"><div class=\"col\"><ul class=\"list-group\">";
+
+        Logger::log("renderFoods - tagId: " . $tagId);
 
         foreach ($foods as $food) {
             $content .= "<li class=\"list-group-item text-center\">" .
-                $this->getAnchorForFood($food['FoodId'], $food['FoodName']) .
+                $this->renderFoodAnchor($food['FoodId'], $food['FoodName'], $tagId) .
                 "</li>";
         }
 

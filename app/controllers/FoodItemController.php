@@ -6,10 +6,12 @@ class FoodItemController {
     private $repository;
     private $view;
     private $foodId;
+    private $tagId;
 
-    public function __construct(NutribaseRepository $repository, int $foodId) {
+    public function __construct(NutribaseRepository $repository, int $foodId, int $tagId) {
         $this->repository = $repository;
         $this->foodId = $foodId;
+        $this->tagId = $tagId;
         $this->view = new FoodItemView();
     }
 
@@ -22,7 +24,7 @@ class FoodItemController {
                 return;
             }
 
-            $html = $this->view->renderFoodItem($food[0]);
+            $html = $this->view->renderFoodItem($this->tagId, $food[0]);
             sendResponse($html, 'text/html');
         } catch (Exception $e) {
             sendResponse(["error" => $e->getMessage()], 'application/json', 500);
