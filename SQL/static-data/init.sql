@@ -47,7 +47,8 @@ INSERT INTO tag (`name`) VALUES
 ('Pasta'),
 ('Rice'),
 ('Supplements'),
-('Vegetables');
+('Vegetables'),
+('Whole Foods');
 
 INSERT INTO `food` (`name`, `kcal_per_unit`, `protein_grams_per_unit`, `unit_caption_override`) VALUES
 ('Chickpeas - Freshona (LIDL) - In Water', 125.00, 6.40, NULL),
@@ -102,7 +103,7 @@ INSERT INTO `food` (`name`, `kcal_per_unit`, `protein_grams_per_unit`, `unit_cap
 ('Bran - Kellogs', 350.00, NULL, NULL),
 ('Granola - Lizi''s', 501.00, NULL, NULL),
 ('Lentils Green - Dried', 176.00, NULL, NULL),
-('Nuts - Mixed - (Lidl)', 646.00, 20.40, NULL),
+('Nuts - Mixed - Alesto (LIDL)', 646.00, 20.40, NULL),
 ('Porridge - Mornflake', 369.00, 11.50, NULL),
 ('Seed - Mixed - Holland & Barrett', 566.00, 23.70, NULL),
 ('Seed - Mixed - Alesto (LIDL)', 576.00, 23.00, NULL),
@@ -195,7 +196,7 @@ WHERE
   (f.name = 'Lentils Green - Dried' AND t.name = 'Legumes') OR
   (f.name = 'Chicken Breast' AND t.name = 'Meat') OR
   (f.name = 'Rapeseed Oil' AND t.name = 'Oil') OR
-  (f.name = 'Nuts - Mixed - (Lidl)' AND t.name = 'Packaged') OR
+  (f.name = 'Nuts - Mixed - Alesto (LIDL)' AND t.name = 'Packaged') OR
   (f.name = 'Seed - Mixed - Holland & Barrett' AND t.name = 'Packaged') OR
   (f.name = 'Seed - Mixed - Alesto (LIDL)' AND t.name = 'Packaged') OR
   (f.name = 'Lime Pickle' AND t.name = 'Packaged') OR
@@ -233,7 +234,12 @@ WHERE
   (f.name = 'Tomatoes - Tinned - Chopped' AND t.name = 'Vegetables') OR
   (f.name = 'Tomtatoes - Fresh' AND t.name = 'Vegetables') OR
   (f.name = 'Tomatoes - Passata' AND t.name = 'Vegetables') OR
-  (f.name = 'Tomatoes - Sun Dried' AND t.name = 'Vegetables');
+  (f.name = 'Tomatoes - Sun Dried' AND t.name = 'Vegetables') OR
+  (f.name = 'Bran - Whole' AND t.name = 'Whole Foods') OR
+  (f.name = 'Lentils Green - Dried' AND t.name = 'Whole Foods') OR
+  (f.name = 'Seed - Mixed - Holland & Barrett' AND t.name = 'Whole Foods') OR
+  (f.name = 'Seed - Mixed - Alesto (LIDL)' AND t.name = 'Whole Foods') OR
+  (f.name = 'Nuts - Mixed - Alesto (LIDL)' AND t.name = 'Whole Foods');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
