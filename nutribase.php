@@ -4,6 +4,7 @@ define('APP_ROOT', __DIR__ . '/');
 
 require_once APP_ROOT . 'app/Logger.php';
 require_once APP_ROOT . 'app/helpers/helpers.php';
+require_once APP_ROOT . 'app/helpers/SharedConstants.php';
 require_once APP_ROOT . 'app/repositories/NutribaseRepository.php';
 require_once APP_ROOT . 'app/controllers/FoodItemController.php';
 require_once APP_ROOT . 'app/controllers/LoginController.php';

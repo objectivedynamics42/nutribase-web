@@ -9,7 +9,7 @@ class TaggedFoodsView {
     }
 
     private function renderTaggedFoodsBackLink(): string {
-        return "/nutribase";//TODO refactor so that we don't have to specify nutribase everywhere
+        return  SharedConstants::BASE_ADDRESS;
     }
 
     public function renderFoods(string $tagId, string $tagName, array $foods): string {
