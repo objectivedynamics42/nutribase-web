@@ -79,39 +79,22 @@ echo "cd ../" >> "$TMPFILE"
 # Helpers
 echo "cd app/helpers" >> "$TMPFILE"
 echo "put \"$LOCAL_DIR\\app\\helpers\\helpers.php\"" >> "$TMPFILE"
+echo "put \"$LOCAL_DIR\\app\\helpers\\SharedConstants.php\"" >> "$TMPFILE"
 echo "cd ../../" >> "$TMPFILE"
 
 # Controllers
 echo "cd app/controllers" >> "$TMPFILE"
 echo "put \"$LOCAL_DIR\\app\\controllers\\FoodItemController.php\"" >> "$TMPFILE"
-echo "cd ../../" >> "$TMPFILE"
-
-echo "cd app/controllers" >> "$TMPFILE"
 echo "put \"$LOCAL_DIR\\app\\controllers\\LoginController.php\"" >> "$TMPFILE"
-echo "cd ../../" >> "$TMPFILE"
-
-echo "cd app/controllers" >> "$TMPFILE"
 echo "put \"$LOCAL_DIR\\app\\controllers\\TaggedFoodsController.php\"" >> "$TMPFILE"
-echo "cd ../../" >> "$TMPFILE"
-
-echo "cd app/controllers" >> "$TMPFILE"
 echo "put \"$LOCAL_DIR\\app\\controllers\\TagsController.php\"" >> "$TMPFILE"
 echo "cd ../../" >> "$TMPFILE"
 
 # Views
 echo "cd app/views" >> "$TMPFILE"
 echo "put \"$LOCAL_DIR\\app\\views\\FoodItemView.php\"" >> "$TMPFILE"
-echo "cd ../../" >> "$TMPFILE"
-
-echo "cd app/views" >> "$TMPFILE"
 echo "put \"$LOCAL_DIR\\app\\views\\LoginView.php\"" >> "$TMPFILE"
-echo "cd ../../" >> "$TMPFILE"
-
-echo "cd app/views" >> "$TMPFILE"
 echo "put \"$LOCAL_DIR\\app\\views\\TaggedFoodsView.php\"" >> "$TMPFILE"
-echo "cd ../../" >> "$TMPFILE"
-
-echo "cd app/views" >> "$TMPFILE"
 echo "put \"$LOCAL_DIR\\app\\views\\TagsView.php\"" >> "$TMPFILE"
 echo "cd ../../" >> "$TMPFILE"
 
