@@ -1,14 +1,32 @@
 <?php
 
-function renderHeader(string $backLinkHref, string $title): string {
+function renderHeader(string $backLinkHref, string $navigationText, string $title): string {
 
     $backLink = "";
-
     if( !empty($backLinkHref)){
         $backLink = "<a href=" . $backLinkHref . " class=\"btn btn-link text-white text-decoration-none\" aria-label=\"Go back\">" .
         "<img src=\"/images/back-svgrepo-com.svg\" alt=\"Go back\" width=\"30\" height=\"30\">" .
       "</a>";
     }
+
+    $navigation =
+    "<div class=\"col d-flex justify-content-end\">" .
+        "<div class=\"dropdown\">" .
+            "<a href=\"#\" class=\"btn btn-link text-white text-decoration-none dropdown-toggle\" " .
+            "id=\"accountDropdown\" " .
+            "role=\"button\" " .
+            "data-bs-toggle=\"dropdown\" " .
+            "aria-expanded=\"false\" " .
+            "aria-label=\"Account\">" .
+                "<img src=\"/images/account.svg\" alt=\"Account\" width=\"30\" height=\"30\">" .
+            "</a>" .
+            "<ul class=\"dropdown-menu dropdown-menu-end\" aria-labelledby=\"accountDropdown\">" .
+                "<li><a class=\"dropdown-item\" href=\"/login\">". $navigationText ."</a></li>" .
+                "<!-- Add more menu options here if needed -->" .
+            "</ul>" .
+        "</div>" .
+    "</div>";
+
 
     return "<!-- helpers.renderHeader -->" .
         "<div class=\"container\">" .
@@ -22,22 +40,7 @@ function renderHeader(string $backLinkHref, string $title): string {
                     "<h1 class=\"mb-0\">nutribase</h1>" .
                 "</div>" .
                 // Account icon on the right with same width as left column
-                "<div class=\"col d-flex justify-content-end\">" .
-                    "<div class=\"dropdown\">" .
-                        "<a href=\"#\" class=\"btn btn-link text-white text-decoration-none dropdown-toggle\" " .
-                        "id=\"accountDropdown\" " .
-                        "role=\"button\" " .
-                        "data-bs-toggle=\"dropdown\" " .
-                        "aria-expanded=\"false\" " .
-                        "aria-label=\"Account\">" .
-                            "<img src=\"/images/account.svg\" alt=\"Account\" width=\"30\" height=\"30\">" .
-                        "</a>" .
-                        "<ul class=\"dropdown-menu dropdown-menu-end\" aria-labelledby=\"accountDropdown\">" .
-                            "<li><a class=\"dropdown-item\" href=\"/login\">Log In</a></li>" .
-                            "<!-- Add more menu options here if needed -->" .
-                        "</ul>" .
-                    "</div>" .
-                "</div>" .
+                $navigation .
             "</div>" .
         // Subheading
         "<div class=\"row bg-secondary text-white py-2\">" .
