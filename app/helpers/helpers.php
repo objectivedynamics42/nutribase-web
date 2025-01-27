@@ -1,15 +1,8 @@
 <?php
 
-function renderHeader(string $backLinkHref, string $navigationText, string $title): string {
-
-    $backLink = "";
-    if( !empty($backLinkHref)){
-        $backLink = "<a href=" . $backLinkHref . " class=\"btn btn-link text-white text-decoration-none\" aria-label=\"Go back\">" .
-        "<img src=\"/images/back-svgrepo-com.svg\" alt=\"Go back\" width=\"30\" height=\"30\">" .
-      "</a>";
-    }
-
-    $navigation =
+function renderNavigation(string $navigationText){
+    return
+    "<!-- helpers.renderNavigation -->" .
     "<div class=\"col d-flex justify-content-end\">" .
         "<div class=\"dropdown\">" .
             "<a href=\"#\" class=\"btn btn-link text-white text-decoration-none dropdown-toggle\" " .
@@ -26,7 +19,28 @@ function renderHeader(string $backLinkHref, string $navigationText, string $titl
             "</ul>" .
         "</div>" .
     "</div>";
+}
 
+function renderBacklink(string $backLinkHref){
+    $backLink = "";
+    if( !empty($backLinkHref)){
+        $backLink = 
+        "<!-- helpers.renderBacklink -->" .
+        "<a href=" .
+            $backLinkHref .
+        " class=\"btn btn-link text-white text-decoration-none\" aria-label=\"Go back\">" .
+        "<img src=\"/images/back-svgrepo-com.svg\" alt=\"Go back\" width=\"30\" height=\"30\">" .
+      "</a>";
+    }
+
+    return $backLink;
+}
+
+function renderHeader(string $backLinkHref, string $navigationText, string $title): string {
+
+    $backLink = renderBacklink($backLinkHref);
+
+    $navigation = renderNavigation($navigationText);
 
     return "<!-- helpers.renderHeader -->" .
         "<div class=\"container\">" .
