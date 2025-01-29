@@ -1,6 +1,7 @@
 <?php
 
 require_once APP_ROOT . 'app/views/TaggedFoodsView.php';
+require_once APP_ROOT . 'app/helpers/Navigation.php';
 
 class TaggedFoodsController {
     private $repository;
