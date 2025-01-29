@@ -42,7 +42,9 @@ function renderHeader(string $backLinkHref, string $navigationText, string $titl
 
     $navigation = renderNavigation($navigationText);
 
-    return "<!-- helpers.renderHeader -->" .
+    $timestamp = date("F d, Y H:i:s", filemtime(__FILE__));
+
+    return "<!-- renderHeader: " . $timestamp . " -->" .
         "<div class=\"container\">" .
             "<div class=\"row custom-blue-bg text-white py-3 align-items-center\">" .
                 // Left empty column for spacing
