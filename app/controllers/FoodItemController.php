@@ -24,12 +24,21 @@ class FoodItemController {
                 return;
             }
 
-            //TODO create navigation here
-            $backLink = SharedConstants::RELATIVE_BASE_URL . "/getFoods?tagId=". $this->tagId;
-            $html = $this->view->renderFoodItem($this->tagId, $food[0], $backLink);
+            $navigation = $this->createNavigation();
+            $html = $this->view->renderFoodItem($this->tagId, $food[0], $navigation);
             sendResponse($html, 'text/html');
         } catch (Exception $e) {
             sendResponse(["error" => $e->getMessage()], 'application/json', 500);
         }
+    }
+
+    private function createNavigation() : Navigation {
+        $backLink = SharedConstants::RELATIVE_BASE_URL . "/getFoods?tagId=". $this->tagId;
+        $menu = [
+            "Wikipedia" => "https://www.wikipedia.org/"
+        ];
+
+
+        return new Navigation($backLink, $menu);
     }
 }

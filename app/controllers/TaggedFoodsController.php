@@ -27,15 +27,22 @@ class TaggedFoodsController {
 
             $foods = $this->repository->getFoodsByTagId($this->tagId);
 
-            //TODO create navigation here
-            $backLink = SharedConstants::RELATIVE_BASE_URL;
             $tagId = $this->tagId;
             $tagName = $tagResult[0]['tagName'];
-            $html = $this->view->renderFoods($tagId, $tagName, $foods, $backLink);
+            $navigation = $this->createNavigation();
+            $html = $this->view->renderFoods($tagId, $tagName, $foods, $navigation);
 
             sendResponse($html, 'text/html');
         } catch (Exception $e) {
             sendResponse(["error" => $e->getMessage()], 'application/json', 500);
         }
+    }
+
+    private function createNavigation() : Navigation {
+        $backLink = SharedConstants::RELATIVE_BASE_URL;
+        $menu = [
+            "YNAB" => "https://www.ynab.com/"
+        ];
+        return new Navigation($backLink, $menu);
     }
 }

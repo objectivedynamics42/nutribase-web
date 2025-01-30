@@ -7,9 +7,8 @@ class TagsView {
                htmlspecialchars($tagName) . "</a>";
     }
 
-    public function renderTags(array $tags): string {
-        $backLink = "";
-        $content = renderHeader($backLink, "Add Tag", "Categories");  
+    public function renderTags(array $tags, Navigation $navigation): string {
+        $content = renderHeader($navigation, "Add Tag", "Categories");  
         $content .= "<div class=\"row mt-4\"><div class=\"col\"><ul class=\"list-group\">";
 
         foreach ($tags as $tag) {

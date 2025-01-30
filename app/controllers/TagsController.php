@@ -17,9 +17,8 @@ class TagsController {
             syslog(LOG_ERR, "getTags called");            
             $tags = $this->repository->getAllTags();
 
-            //TODO create navigation here
-            $backLink = "";
-            $html = $this->view->renderTags($tags, $backLink);
+            $navigation = $this->createNavigation();
+            $html = $this->view->renderTags($tags, $navigation);
 
             sendResponse($html, 'text/html');
         } catch (Exception $e) {
@@ -27,9 +26,16 @@ class TagsController {
         }
     }
 
-    public function login(){
-        $html = "<html><body>Log In</body></html>";
-        sendResponse($html, 'text/html');
+    private function createNavigation() : Navigation {
+        $menu = [
+            "Hacker News" => "https://news.ycombinator.com/"
+        ];
+        var_dump($menu, "TagsController.createNavigation");
+        die(); // Stop execution to inspect the output
+
+        $navigation = new Navigation("XoX", $menu);
+
+        return $navigation;
     }
 }
 

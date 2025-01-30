@@ -66,6 +66,7 @@ echo "mkdir app/helpers" >> "$TMPFILE"
 
 # Upload root files
 echo "put \"$LOCAL_DIR\\config.php\"" >> "$TMPFILE"
+echo "put \"$LOCAL_DIR\\phpinfo.php\"" >> "$TMPFILE"
 echo "put \"$LOCAL_DIR\\Nutribase.php\"" >> "$TMPFILE"
 echo "put \"$LOCAL_DIR\\.htaccess\"" >> "$TMPFILE"
 

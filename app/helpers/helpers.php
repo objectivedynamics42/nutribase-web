@@ -1,6 +1,12 @@
 <?php
 
-function renderNavigation(string $navigationText){
+function renderMenu(array $menu) : string{
+    return 
+        "<li><a class=\"dropdown-item\" href=\"" . "URL HERE" . "\">". "CAPTION HERE" ."</a></li>" .
+        "<!-- Add more menu options here if needed -->";
+}
+
+function renderNavigation(array $menu){
     return
     "<!-- helpers.renderNavigation -->" .
     "<div class=\"col d-flex justify-content-end\">" .
@@ -14,8 +20,7 @@ function renderNavigation(string $navigationText){
                 "<img src=\"/images/account.svg\" alt=\"Account\" width=\"30\" height=\"30\">" .
             "</a>" .
             "<ul class=\"dropdown-menu dropdown-menu-end\" aria-labelledby=\"accountDropdown\">" .
-                "<li><a class=\"dropdown-item\" href=\"/login\">". $navigationText ."</a></li>" .
-                "<!-- Add more menu options here if needed -->" .
+                renderMenu($menu) .
             "</ul>" .
         "</div>" .
     "</div>";
@@ -36,11 +41,14 @@ function renderBacklink(string $backLinkHref){
     return $backLink;
 }
 
-function renderHeader(string $backLinkHref, string $navigationText, string $title): string {
+function renderHeader(Navigation $navigation, string $title): string {
 
-    $backLink = renderBacklink($backLinkHref);
+    var_dump($navigation, "Helpers:renderHeader");
+    die();
 
-    $navigation = renderNavigation($navigationText);
+    $backLink = renderBacklink($navigation->getBacklinkUrl());
+
+    $navigation = renderNavigation($navigation->getMenu());
 
     $timestamp = date("F d, Y H:i:s", filemtime(__FILE__));
 

@@ -8,8 +8,8 @@ class TaggedFoodsView {
                htmlspecialchars($foodName) . "</a>";
     }
 
-    public function renderFoods(string $tagId, string $tagName, array $foods, string $backLinkHref): string {
-        $content = renderHeader($backLinkHref, "Add Food", $tagName);
+    public function renderFoods(string $tagId, string $tagName, array $foods, Navigation $navigation): string {
+        $content = renderHeader($navigation, "Add Food", $tagName);
         $content .= "<div class=\"row mt-4\"><div class=\"col\"><ul class=\"list-group\">";
 
         Logger::log("renderFoods - tagId: " . $tagId);
