@@ -3,13 +3,23 @@
 define('APP_ROOT', __DIR__ . '/');
 
 require_once APP_ROOT . 'app/Logger.php';
-require_once APP_ROOT . 'app/helpers/helpers.php';
-require_once APP_ROOT . 'app/helpers/SharedConstants.php';
-require_once APP_ROOT . 'app/repositories/NutribaseRepository.php';
+
 require_once APP_ROOT . 'app/controllers/FoodItemController.php';
 require_once APP_ROOT . 'app/controllers/LoginController.php';
 require_once APP_ROOT . 'app/controllers/TagsController.php';
 require_once APP_ROOT . 'app/controllers/TaggedFoodsController.php';
+
+require_once APP_ROOT . 'app/helpers/helpers.php';
+require_once APP_ROOT . 'app/helpers/Navigation.php';
+require_once APP_ROOT . 'app/helpers/SharedConstants.php';
+
+require_once APP_ROOT . 'app/repositories/NutribaseRepository.php';
+
+require_once APP_ROOT . 'app/views/FoodItemView.php';
+require_once APP_ROOT . 'app/views/LoginView.php';
+require_once APP_ROOT . 'app/views/TaggedFoodsView.php';
+require_once APP_ROOT . 'app/views/TagsView.php';
+
 
 // Database connection details
 $servername = "localhost";

@@ -1,8 +1,5 @@
 <?php
 
-require_once APP_ROOT . 'app/views/TaggedFoodsView.php';
-require_once APP_ROOT . 'app/helpers/Navigation.php';
-
 class TaggedFoodsController {
     private $repository;
     private $view;
@@ -41,7 +38,7 @@ class TaggedFoodsController {
     private function createNavigation() : Navigation {
         $backLink = SharedConstants::RELATIVE_BASE_URL;
         $menu = [
-            "YNAB" => "https://www.ynab.com/"
+            "Update Foods..." => "/nutribase/update-foods"
         ];
         return new Navigation($backLink, $menu);
     }

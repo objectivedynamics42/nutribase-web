@@ -1,9 +1,16 @@
 <?php
 
 function renderMenu(array $menu) : string{
-    return 
-        "<li><a class=\"dropdown-item\" href=\"" . "URL HERE" . "\">". "CAPTION HERE" ."</a></li>" .
-        "<!-- Add more menu options here if needed -->";
+
+    $menuMarkup = "";
+    foreach ($menu as $caption => $url) {
+        $menuItemMarkup = 
+        "<li><a class=\"dropdown-item\" href=\"" . $url . "\">". $caption ."</a></li>";
+
+        $menuMarkup .= $menuItemMarkup;
+    }
+
+    return $menuMarkup;
 }
 
 function renderNavigation(array $menu){
@@ -42,10 +49,6 @@ function renderBacklink(string $backLinkHref){
 }
 
 function renderHeader(Navigation $navigation, string $title): string {
-
-    var_dump($navigation, "Helpers:renderHeader");
-    die();
-
     $backLink = renderBacklink($navigation->getBacklinkUrl());
 
     $navigation = renderNavigation($navigation->getMenu());

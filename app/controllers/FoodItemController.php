@@ -1,7 +1,5 @@
 <?php
 
-require_once APP_ROOT . 'app/views/FoodItemView.php';
-
 class FoodItemController {
     private $repository;
     private $view;
@@ -35,9 +33,8 @@ class FoodItemController {
     private function createNavigation() : Navigation {
         $backLink = SharedConstants::RELATIVE_BASE_URL . "/getFoods?tagId=". $this->tagId;
         $menu = [
-            "Wikipedia" => "https://www.wikipedia.org/"
+            "Update Food Item..." => "/nutribase/update-food-item"
         ];
-
 
         return new Navigation($backLink, $menu);
     }

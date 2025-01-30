@@ -1,7 +1,5 @@
 <?php
 
-require_once APP_ROOT . 'app/views/TagsView.php';
-
 class TagsController {
     private $repository;
     private $view;
@@ -28,12 +26,9 @@ class TagsController {
 
     private function createNavigation() : Navigation {
         $menu = [
-            "Hacker News" => "https://news.ycombinator.com/"
+            "Update Tags..." => "/nutribase/update-tags"
         ];
-        var_dump($menu, "TagsController.createNavigation");
-        die(); // Stop execution to inspect the output
-
-        $navigation = new Navigation("XoX", $menu);
+        $navigation = new Navigation("", $menu);
 
         return $navigation;
     }

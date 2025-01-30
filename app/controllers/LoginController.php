@@ -1,7 +1,5 @@
 <?php
 
-require_once APP_ROOT . 'app/views/LoginView.php';
-
 class LoginController {
     private $repository;
     private $view;

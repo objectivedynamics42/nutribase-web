@@ -9,7 +9,7 @@ class TaggedFoodsView {
     }
 
     public function renderFoods(string $tagId, string $tagName, array $foods, Navigation $navigation): string {
-        $content = renderHeader($navigation, "Add Food", $tagName);
+        $content = renderHeader($navigation, $tagName);
         $content .= "<div class=\"row mt-4\"><div class=\"col\"><ul class=\"list-group\">";
 
         Logger::log("renderFoods - tagId: " . $tagId);
