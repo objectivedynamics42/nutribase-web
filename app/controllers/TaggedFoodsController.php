@@ -26,7 +26,13 @@ class TaggedFoodsController {
             Logger::log("getTaggedFoods - tagId: " . $this->tagId);
 
             $foods = $this->repository->getFoodsByTagId($this->tagId);
-            $html = $this->view->renderFoods($this->tagId, $tagResult[0]['tagName'], $foods);
+
+            //TODO create navigation here
+            $backLink = SharedConstants::RELATIVE_BASE_URL;
+            $tagId = $this->tagId;
+            $tagName = $tagResult[0]['tagName'];
+            $html = $this->view->renderFoods($tagId, $tagName, $foods, $backLink);
+
             sendResponse($html, 'text/html');
         } catch (Exception $e) {
             sendResponse(["error" => $e->getMessage()], 'application/json', 500);

@@ -16,7 +16,11 @@ class TagsController {
         try {
             syslog(LOG_ERR, "getTags called");            
             $tags = $this->repository->getAllTags();
-            $html = $this->view->renderTags($tags);
+
+            //TODO create navigation here
+            $backLink = "";
+            $html = $this->view->renderTags($tags, $backLink);
+
             sendResponse($html, 'text/html');
         } catch (Exception $e) {
             sendResponse(["error" => $e->getMessage()], 'application/json', 500);

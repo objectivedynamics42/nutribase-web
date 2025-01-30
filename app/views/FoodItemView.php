@@ -2,8 +2,7 @@
 
 class FoodItemView {
 
-    public function renderFoodItem(string $tagId, array $food): string {
-        $backLink = SharedConstants::BASE_ADDRESS . "/getFoods?tagId=". $tagId;
+    public function renderFoodItem(string $tagId, array $food, $backLink): string {
         $content = renderHeader($backLink, "Edit", $food['FoodName']);
         $content .= "<div class=\"row mt-4\"><div class=\"col\"><ul class=\"list-group\">";
 

@@ -24,7 +24,9 @@ class FoodItemController {
                 return;
             }
 
-            $html = $this->view->renderFoodItem($this->tagId, $food[0]);
+            //TODO create navigation here
+            $backLink = SharedConstants::RELATIVE_BASE_URL . "/getFoods?tagId=". $this->tagId;
+            $html = $this->view->renderFoodItem($this->tagId, $food[0], $backLink);
             sendResponse($html, 'text/html');
         } catch (Exception $e) {
             sendResponse(["error" => $e->getMessage()], 'application/json', 500);

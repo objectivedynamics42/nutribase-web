@@ -1,4 +1,4 @@
 <?php
 class SharedConstants {
-    public const BASE_ADDRESS = '/nutribase';
+    public const RELATIVE_BASE_URL = '/nutribase';
 }

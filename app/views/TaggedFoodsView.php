@@ -8,12 +8,7 @@ class TaggedFoodsView {
                htmlspecialchars($foodName) . "</a>";
     }
 
-    private function renderTaggedFoodsBackLink(): string {
-        return  SharedConstants::BASE_ADDRESS;
-    }
-
-    public function renderFoods(string $tagId, string $tagName, array $foods): string {
-        $backLinkHref = $this->renderTaggedFoodsBackLink();
+    public function renderFoods(string $tagId, string $tagName, array $foods, string $backLinkHref): string {
         $content = renderHeader($backLinkHref, "Add Food", $tagName);
         $content .= "<div class=\"row mt-4\"><div class=\"col\"><ul class=\"list-group\">";
 
