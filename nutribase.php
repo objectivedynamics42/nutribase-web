@@ -61,7 +61,7 @@ try {
             case '/nutribase.php/get-foods':
             case '/nutribase/get-foods':
 
-                $tagID = $query['tagid'];
+                $tagID = $query['cat'];
                 Logger::log("Request for /nutribase/get-foods with tagId: " . $tagID);
 
                 if (!isset($tagID)) {
@@ -80,7 +80,7 @@ try {
                     sendResponse(["error" => "Missing required parameter: foodid"], 'application/json', 400);
                     break;
                 }
-                $backLinkTagId = $query['tagid'];
+                $backLinkTagId = $query['cat'];
                 if (!isset($backLinkTagId)) {
                     sendResponse(["error" => "Missing required parameter: tagid"], 'application/json', 400);
                     break;

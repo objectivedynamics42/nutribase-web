@@ -3,8 +3,7 @@
 class TaggedFoodsView {
 
     private function renderFoodAnchor(int $foodId, string $foodName, string $tagId): string {
-        //TODO can we use a relative link for the below?
-        $url = "/nutribase/get-food-item?foodId=" . $foodId . "&tagId=" . $tagId;
+        $url = "/nutribase/get-food-item?foodId=" . $foodId . "&cat=" . $tagId;
         return "<a href=\"" . htmlspecialchars($url) . "\" class=\"text-decoration-none\">" . 
                htmlspecialchars($foodName) . "</a>";
     }

@@ -1,9 +1,8 @@
 <?php
 
 class TagsView {
-        //TODO can we use a relative link for the below?
-        private function getAnchorForTaggedFoods(int $tagId, string $tagName): string {
-        $url = "/nutribase/get-foods?tagId=" . $tagId;
+    private function renderAnchorForTaggedFoods(int $tagId, string $tagName): string {
+        $url = "/nutribase/get-foods?cat=" . $tagId;
         return "<a href=\"" . htmlspecialchars($url) . "\" class=\"text-decoration-none\">" . 
                htmlspecialchars($tagName) . "</a>";
     }
@@ -14,7 +13,7 @@ class TagsView {
 
         foreach ($tags as $tag) {
             $content .= "<li class=\"list-group-item text-center\">" .
-                $this->getAnchorForTaggedFoods($tag['TagId'], $tag['TagName']) .
+                $this->renderAnchorForTaggedFoods($tag['TagId'], $tag['TagName']) .
                 "</li>";
         }
 
