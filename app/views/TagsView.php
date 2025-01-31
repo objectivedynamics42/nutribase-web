@@ -1,8 +1,9 @@
 <?php
 
 class TagsView {
-    private function getAnchorForTaggedFoods(int $tagId, string $tagName): string {
-        $url = "https://objectivedynamics.co.uk/nutribase/getFoods?tagId=" . $tagId;
+        //TODO can we use a relative link for the below?
+        private function getAnchorForTaggedFoods(int $tagId, string $tagName): string {
+        $url = "/nutribase/get-foods?tagId=" . $tagId;
         return "<a href=\"" . htmlspecialchars($url) . "\" class=\"text-decoration-none\">" . 
                htmlspecialchars($tagName) . "</a>";
     }

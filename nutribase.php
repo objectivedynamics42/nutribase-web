@@ -50,19 +50,19 @@ try {
         Logger::log("Checking request uri: " . $uri);
         
         switch ($uri) {
-            case '/nutribase.php/gettags':
-            case '/nutribase/gettags':
+            case '/nutribase.php/get-tags':
+            case '/nutribase/get-tags':
             case '/nutribase':
             case '/':
                 $tagsController = new TagsController($repository);
                 $tagsController->getTags();
                 break;
 
-            case '/nutribase.php/getfoods':
-            case '/nutribase/getfoods':
+            case '/nutribase.php/get-foods':
+            case '/nutribase/get-foods':
 
                 $tagID = $query['tagid'];
-                Logger::log("Request for /nutribase/getfoods with tagId: " . $tagID);
+                Logger::log("Request for /nutribase/get-foods with tagId: " . $tagID);
 
                 if (!isset($tagID)) {
                     sendResponse(["error" => "Missing required parameter: tagid"], 'application/json', 400);
@@ -72,8 +72,8 @@ try {
                 $taggedFoodsController->getTaggedFoods();
                 break;
 
-            case '/nutribase.php/getfooditem':
-            case '/nutribase/getfooditem':
+            case '/nutribase.php/get-food-item':
+            case '/nutribase/get-food-item':
 
                 $foodId = $query['foodid'];
                 if (!isset($foodId)) {
