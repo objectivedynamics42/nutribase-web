@@ -58,7 +58,7 @@ try {
         Logger::log("Preprocessed request uri as: " . $path);
 
         switch ($path) {
-            case 'get-tags':
+            case 'get-categories':
             case '/nutribase':
             case '/':
                 $controller = new TagsController($repository);
