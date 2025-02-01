@@ -70,6 +70,11 @@ echo "put \"$LOCAL_DIR\\app\\controllers\\FoodItemController.php\"" >> "$TMPFILE
 echo "put \"$LOCAL_DIR\\app\\controllers\\LoginController.php\"" >> "$TMPFILE"
 echo "put \"$LOCAL_DIR\\app\\controllers\\TaggedFoodsController.php\"" >> "$TMPFILE"
 echo "put \"$LOCAL_DIR\\app\\controllers\\TagsController.php\"" >> "$TMPFILE"
+
+echo "put \"$LOCAL_DIR\\app\\controllers\\UpdateCategoriesController.php\"" >> "$TMPFILE"
+echo "put \"$LOCAL_DIR\\app\\controllers\\UpdateFoodsController.php\"" >> "$TMPFILE"
+echo "put \"$LOCAL_DIR\\app\\controllers\\UpdateFoodItemController.php\"" >> "$TMPFILE"
+
 echo "cd ../../" >> "$TMPFILE"
 
 echo "quit" >> "$TMPFILE"

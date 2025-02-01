@@ -9,6 +9,10 @@ require_once APP_ROOT . 'app/controllers/LoginController.php';
 require_once APP_ROOT . 'app/controllers/TagsController.php';
 require_once APP_ROOT . 'app/controllers/TaggedFoodsController.php';
 
+require_once APP_ROOT . 'app/controllers/UpdateCategoriesController.php';
+require_once APP_ROOT . 'app/controllers/UpdateFoodsController.php';
+require_once APP_ROOT . 'app/controllers/UpdateFoodItemController.php';
+
 require_once APP_ROOT . 'app/helpers/helpers.php';
 require_once APP_ROOT . 'app/helpers/Navigation.php';
 require_once APP_ROOT . 'app/helpers/SharedConstants.php';
@@ -47,19 +51,21 @@ try {
         parse_str(parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY), $query);
         $query = array_change_key_case($query, CASE_LOWER);
 
+        //TODO make it so that any requests that don't specify an endpoint are redirected to /nutribase
+
         Logger::log("Checking request uri: " . $uri);
-        
-        switch ($uri) {
-            case '/nutribase.php/get-tags':
-            case '/nutribase/get-tags':
+        $path = preg_replace('#^/nutribase(?:\.php)?/(.+)$#', '$1', $uri);
+        Logger::log("Preprocessed request uri as: " . $path);
+
+        switch ($path) {
+            case 'get-tags':
             case '/nutribase':
             case '/':
-                $tagsController = new TagsController($repository);
-                $tagsController->getTags();
+                $controller = new TagsController($repository);
+                $controller->getTags();
                 break;
 
-            case '/nutribase.php/get-foods':
-            case '/nutribase/get-foods':
+            case 'get-foods':
 
                 $tagID = $query['cat'];
                 Logger::log("Request for /nutribase/get-foods with tagId: " . $tagID);
@@ -68,12 +74,11 @@ try {
                     sendResponse(["error" => "Missing required parameter: tagid"], 'application/json', 400);
                     break;
                 }
-                $taggedFoodsController = new TaggedFoodsController($repository, (int)$tagID);
-                $taggedFoodsController->getTaggedFoods();
+                $controller = new TaggedFoodsController($repository, (int)$tagID);
+                $controller->getTaggedFoods();
                 break;
 
-            case '/nutribase.php/get-food-item':
-            case '/nutribase/get-food-item':
+            case 'get-food-item':
 
                 $foodId = $query['foodid'];
                 if (!isset($foodId)) {
@@ -86,12 +91,27 @@ try {
                     break;
                 }
 
-                $foodItemController = new FoodItemController($repository, (int)$foodId, (int)$backLinkTagId);
-                $foodItemController->getFoodItem();
+                $controller = new FoodItemController($repository, (int)$foodId, (int)$backLinkTagId);
+                $controller->getFoodItem();
                 break;
 
-            case '/login':
-                $loginController = new LoginController($repository);
+            case 'update-categories':
+                $controller = new UpdateCategoriesController();
+                $controller->handleUpdates();
+                break;
+
+            case 'update-foods':
+                $controller = new UpdateFoodsController();
+                $controller->handleUpdates();
+                break;
+
+            case 'update-food-item':
+                $controller = new UpdateFoodItemController();
+                $controller->handleUpdates();
+                break;
+
+            case 'login':
+                $controller = new LoginController($repository);
                 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     // Check if username and password were submitted
                     if (!isset($_POST['username']) || !isset($_POST['password'])) {
@@ -106,10 +126,10 @@ try {
                     $password = $_POST['password']; // Don't sanitize password as it might contain special chars
                     
                     // Handle login attempt
-                    $loginController->handleLogin($username, $password);
+                    $controller->handleLogin($username, $password);
                 } else {
                     // GET request - show login form
-                    $loginController->login();
+                    $controller->login();
                 }
                 break;
 
