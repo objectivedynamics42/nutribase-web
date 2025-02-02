@@ -26,7 +26,7 @@ class TagsController {
 
     private function createNavigation() : Navigation {
         $menu = [
-            "Update Categories..." => "/nutribase/update-categories"
+            "Admin..." => "/nutribase/admin"
         ];
         $navigation = new Navigation("", $menu);
 

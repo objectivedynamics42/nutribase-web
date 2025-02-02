@@ -4,14 +4,11 @@ define('APP_ROOT', __DIR__ . '/');
 
 require_once APP_ROOT . 'app/Logger.php';
 
+require_once APP_ROOT . 'app/controllers/AdminController.php';
 require_once APP_ROOT . 'app/controllers/FoodItemController.php';
 require_once APP_ROOT . 'app/controllers/LoginController.php';
 require_once APP_ROOT . 'app/controllers/TagsController.php';
 require_once APP_ROOT . 'app/controllers/TaggedFoodsController.php';
-
-require_once APP_ROOT . 'app/controllers/UpdateCategoriesController.php';
-require_once APP_ROOT . 'app/controllers/UpdateFoodsController.php';
-require_once APP_ROOT . 'app/controllers/UpdateFoodItemController.php';
 
 require_once APP_ROOT . 'app/helpers/helpers.php';
 require_once APP_ROOT . 'app/helpers/Navigation.php';
@@ -19,6 +16,7 @@ require_once APP_ROOT . 'app/helpers/SharedConstants.php';
 
 require_once APP_ROOT . 'app/repositories/NutribaseRepository.php';
 
+require_once APP_ROOT . 'app/views/AdminView.php';
 require_once APP_ROOT . 'app/views/FoodItemView.php';
 require_once APP_ROOT . 'app/views/LoginView.php';
 require_once APP_ROOT . 'app/views/TaggedFoodsView.php';
@@ -95,19 +93,9 @@ try {
                 $controller->getFoodItem();
                 break;
 
-            case 'update-categories':
-                $controller = new UpdateCategoriesController();
-                $controller->handleUpdates();
-                break;
-
-            case 'update-foods':
-                $controller = new UpdateFoodsController();
-                $controller->handleUpdates();
-                break;
-
-            case 'update-food-item':
-                $controller = new UpdateFoodItemController();
-                $controller->handleUpdates();
+            case 'admin':
+                $controller = new AdminController();
+                $controller->handleAdmin();
                 break;
 
             case 'login':

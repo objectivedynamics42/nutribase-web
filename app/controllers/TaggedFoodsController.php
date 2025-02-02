@@ -38,7 +38,7 @@ class TaggedFoodsController {
     private function createNavigation() : Navigation {
         $backLink = SharedConstants::RELATIVE_BASE_URL;
         $menu = [
-            "Update Foods..." => "/nutribase/update-foods"
+            "Admin..." => "/nutribase/admin"
         ];
         return new Navigation($backLink, $menu);
     }

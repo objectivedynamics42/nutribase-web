@@ -29,8 +29,8 @@ echo "mkdir app/views" >> "$TMPFILE"
 
 # Views
 echo "cd app/views" >> "$TMPFILE"
+echo "put \"$LOCAL_DIR\\app\\views\\AdminView.php\"" >> "$TMPFILE"
 echo "put \"$LOCAL_DIR\\app\\views\\FoodItemView.php\"" >> "$TMPFILE"
-echo "put \"$LOCAL_DIR\\app\\views\\LoginView.php\"" >> "$TMPFILE"
 echo "put \"$LOCAL_DIR\\app\\views\\TaggedFoodsView.php\"" >> "$TMPFILE"
 echo "put \"$LOCAL_DIR\\app\\views\\TagsView.php\"" >> "$TMPFILE"
 echo "cd ../../" >> "$TMPFILE"

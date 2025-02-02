@@ -33,7 +33,7 @@ class FoodItemController {
     private function createNavigation() : Navigation {
         $backLink = SharedConstants::RELATIVE_BASE_URL . "/get-foods?cat=". $this->tagId;
         $menu = [
-            "Update Food Item..." => "/nutribase/update-food-item"
+            "Admin..." => "/nutribase/admin"
         ];
 
         return new Navigation($backLink, $menu);

@@ -14,9 +14,11 @@ function renderMenu(array $menu) : string{
 }
 
 function renderNavigation(array $menu){
-    return
-    "<!-- helpers.renderNavigation -->" .
-    "<div class=\"col d-flex justify-content-end\">" .
+
+    $dropdownContent = "";
+
+    if (!empty($menu)){
+        $dropdownContent =  
         "<div class=\"dropdown\">" .
             "<a href=\"#\" class=\"btn btn-link text-white text-decoration-none dropdown-toggle\" " .
             "id=\"accountDropdown\" " .
@@ -29,8 +31,14 @@ function renderNavigation(array $menu){
             "<ul class=\"dropdown-menu dropdown-menu-end\" aria-labelledby=\"accountDropdown\">" .
                 renderMenu($menu) .
             "</ul>" .
-        "</div>" .
-    "</div>";
+        "</div>";
+    }
+
+    return
+        "<!-- helpers.renderNavigation -->" .
+        "<div class=\"col d-flex justify-content-end\">" .
+        $dropdownContent .
+        "</div>";
 }
 
 function renderBacklink(string $backLinkHref){

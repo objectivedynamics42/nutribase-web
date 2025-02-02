@@ -17,7 +17,7 @@ class TagsView {
                 "</li>";
         }
 
-        $content .= "</ul></div></div>" . "<!-- TagsView -->" . renderFooter();
+        $content .= "</ul></div></div>" . renderFooter();
         return bootstrapWrap($content);
     }
 }

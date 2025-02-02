@@ -30,12 +30,9 @@ echo "mkdir app/controllers" >> "$TMPFILE"
 # Controllers
 echo "cd app/controllers" >> "$TMPFILE"
 echo "put \"$LOCAL_DIR\\app\\controllers\\FoodItemController.php\"" >> "$TMPFILE"
-echo "put \"$LOCAL_DIR\\app\\controllers\\LoginController.php\"" >> "$TMPFILE"
 echo "put \"$LOCAL_DIR\\app\\controllers\\TaggedFoodsController.php\"" >> "$TMPFILE"
 echo "put \"$LOCAL_DIR\\app\\controllers\\TagsController.php\"" >> "$TMPFILE"
-echo "put \"$LOCAL_DIR\\app\\controllers\\UpdateCategoriesController.php\"" >> "$TMPFILE"
-echo "put \"$LOCAL_DIR\\app\\controllers\\UpdateFoodsController.php\"" >> "$TMPFILE"
-echo "put \"$LOCAL_DIR\\app\\controllers\\UpdateFoodItemController.php\"" >> "$TMPFILE"
+echo "put \"$LOCAL_DIR\\app\\controllers\\AdminController.php\"" >> "$TMPFILE"
 
 echo "cd ../../" >> "$TMPFILE"
 
