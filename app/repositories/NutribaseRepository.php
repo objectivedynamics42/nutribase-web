@@ -7,7 +7,7 @@ class NutribaseRepository {
         $this->conn = $conn;
     }
 
-    private function doQuery(string $sql, array $params): array {
+    protected function doQuery(string $sql, array $params): array {
         // Prepare the query
         $stmt = $this->conn->prepare($sql);
         if (!$stmt) {

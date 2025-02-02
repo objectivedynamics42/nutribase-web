@@ -29,6 +29,7 @@ echo "mkdir app/controllers" >> "$TMPFILE"
 
 # Controllers
 echo "cd app/controllers" >> "$TMPFILE"
+echo "put \"$LOCAL_DIR\\app\\controllers\\AddUserController.php\"" >> "$TMPFILE"
 echo "put \"$LOCAL_DIR\\app\\controllers\\FoodItemController.php\"" >> "$TMPFILE"
 echo "put \"$LOCAL_DIR\\app\\controllers\\TaggedFoodsController.php\"" >> "$TMPFILE"
 echo "put \"$LOCAL_DIR\\app\\controllers\\TagsController.php\"" >> "$TMPFILE"

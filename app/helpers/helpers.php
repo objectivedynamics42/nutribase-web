@@ -139,5 +139,3 @@ function sendResponse($content, string $contentType = 'application/json', int $h
     // Terminate script
     exit;
 }
-
- 

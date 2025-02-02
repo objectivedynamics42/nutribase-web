@@ -36,6 +36,7 @@ echo "mkdir app/repositories" >> "$TMPFILE"
 # Repositories
 echo "cd app/repositories" >> "$TMPFILE"
 echo "put \"$LOCAL_DIR\\app\\repositories\\NutribaseRepository.php\"" >> "$TMPFILE"
+echo "put \"$LOCAL_DIR\\app\\repositories\\AuthRepository.php\"" >> "$TMPFILE"
 echo "cd ../../" >> "$TMPFILE"
 
 echo "quit" >> "$TMPFILE"
