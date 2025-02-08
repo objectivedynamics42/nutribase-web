@@ -83,6 +83,7 @@ INSERT INTO `food` (`name`, `kcal_per_unit`, `protein_grams_per_unit`, `unit_cap
 ('Milk - UHT Skimmed - Dairy Manor (LIDL)', 35.00, 3.40, NULL),
 ('Milk - Soya', 33.00, NULL, NULL),
 ('Milk - Oat - Vemondo', 41.00, NULL, NULL),
+('Fresh Orange Juice (LIDL)', 50.00, NULL, NULL),
 ('PhD Whey Protein Powder', 96.00, 64.00, NULL),
 ('Apple - Fresh', 36.00, NULL, NULL),
 ('Apple - Stewed', 40.00, NULL, NULL),
@@ -205,6 +206,7 @@ WHERE
   (f.name = 'Lentils Green - Dried' AND t.name = 'Legumes') OR
   (f.name = 'Chicken Breast' AND t.name = 'Meat') OR
   (f.name = 'Rapeseed Oil' AND t.name = 'Oil') OR
+  (f.name = 'Fresh Orange Juice (LIDL)' AND t.name = 'Packaged') OR
   (f.name = 'Nuts - Mixed - Alesto (LIDL)' AND t.name = 'Packaged') OR
   (f.name = 'Seed - Mixed - Holland & Barrett' AND t.name = 'Packaged') OR
   (f.name = 'Seed - Mixed - Alesto (LIDL)' AND t.name = 'Packaged') OR
