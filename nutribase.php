@@ -48,7 +48,7 @@ try {
     if (isset($_SERVER['REQUEST_URI'])) {
         $uri = strtolower(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
         $query = [];
-        parse_str(parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY), $query);
+        parse_str(parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY) ?? '', $query);
         $query = array_change_key_case($query, CASE_LOWER);
 
         Logger::log("Checking request uri: " . $uri);
