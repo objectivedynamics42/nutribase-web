@@ -72,7 +72,7 @@ try {
                 Logger::log("Creating auth repository");
                 $repository = new AuthRepository($conn);
                 $controller = new AddUserController($repository);
-                $controller->addUser($email,$password);
+                $controller->register($email,$password);
                 break;
 
             case 'get-foods':

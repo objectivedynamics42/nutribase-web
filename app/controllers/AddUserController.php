@@ -25,6 +25,8 @@ class AddUserController {
     }
 
     public function register(string $email, string $password): void {
+        Logger::log("AddUserController::register called for email: " . $email);
+
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             throw new Exception('Invalid email format');
         }
@@ -42,5 +44,13 @@ class AddUserController {
         );
         
         $this->repository->createUser($email, $hashedPassword);
+
+        $html =
+        "<html>" .
+        "<title>Register User</title>" .
+        "<body>" . $email . "</body>" .
+        "</html>";
+
+        sendResponse($html, 'text/html');
     }
 }
