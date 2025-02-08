@@ -1,7 +1,5 @@
 <?php
 
-require_once APP_ROOT . 'app/views/TagsView.php';
-
 class TagsController {
     private $repository;
     private $view;
@@ -16,16 +14,23 @@ class TagsController {
         try {
             syslog(LOG_ERR, "getTags called");            
             $tags = $this->repository->getAllTags();
-            $html = $this->view->renderTags($tags);
+
+            $navigation = $this->createNavigation();
+            $html = $this->view->renderTags($tags, $navigation);
+
             sendResponse($html, 'text/html');
         } catch (Exception $e) {
             sendResponse(["error" => $e->getMessage()], 'application/json', 500);
         }
     }
 
-    public function login(){
-        $html = "<html><body>Log In</body></html>";
-        sendResponse($html, 'text/html');
+    private function createNavigation() : Navigation {
+        $menu = [
+            "Admin..." => "/nutribase/admin"
+        ];
+        $navigation = new Navigation("", $menu);
+
+        return $navigation;
     }
 }
 

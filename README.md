@@ -1,5 +1,10 @@
-# Nutribase API
-## Routing
-* The [gettags endpoint](https://objectivedynamics.co.uk/nutribase/getTags) works
-* Similarly the [getfoods endpoint for tag 4 (fruits)](https://objectivedynamics.co.uk/nutribase/getFoods?tagId=4) works
-* As does the [getfoods endpoint for food 15 (Greek Yoghurt)](https://objectivedynamics.co.uk/nutribase/getfooditem?foodId=15)
+# Routing
+This is performed by a combination of:
+* [.htaccess](https://github.com/objectivedynamics42/nutribase-web/blob/navigation-framework/.htaccess)
+* [nutribase.php](https://github.com/objectivedynamics42/nutribase-web/blob/navigation-framework/nutribase.php)
+
+# Manage
+Choice between
+* Categories
+* Foods
+* Food Item

@@ -1,7 +1,5 @@
 <?php
 
-require_once APP_ROOT . 'app/views/FoodItemView.php';
-
 class FoodItemController {
     private $repository;
     private $view;
@@ -24,10 +22,20 @@ class FoodItemController {
                 return;
             }
 
-            $html = $this->view->renderFoodItem($this->tagId, $food[0]);
+            $navigation = $this->createNavigation();
+            $html = $this->view->renderFoodItem($this->tagId, $food[0], $navigation);
             sendResponse($html, 'text/html');
         } catch (Exception $e) {
             sendResponse(["error" => $e->getMessage()], 'application/json', 500);
         }
+    }
+
+    private function createNavigation() : Navigation {
+        $backLink = SharedConstants::RELATIVE_BASE_URL . "/get-foods?cat=". $this->tagId;
+        $menu = [
+            "Admin..." => "/nutribase/admin"
+        ];
+
+        return new Navigation($backLink, $menu);
     }
 }

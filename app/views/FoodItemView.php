@@ -2,9 +2,8 @@
 
 class FoodItemView {
 
-    public function renderFoodItem(string $tagId, array $food): string {
-        $backLink = SharedConstants::BASE_ADDRESS . "/getFoods?tagId=". $tagId;
-        $content = renderHeader($backLink, $food['FoodName']);
+    public function renderFoodItem(string $tagId, array $food, Navigation $navigation): string {
+        $content = renderHeader($navigation, $food['FoodName']);
         $content .= "<div class=\"row mt-4\"><div class=\"col\"><ul class=\"list-group\">";
 
         $unit = $food['override'] ?? 'Per 100g';

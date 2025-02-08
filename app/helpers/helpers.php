@@ -1,16 +1,69 @@
 <?php
 
-function renderHeader(string $backLinkHref, string $title): string {
+function renderMenu(array $menu) : string{
 
+    $menuMarkup = "";
+    foreach ($menu as $caption => $url) {
+        $menuItemMarkup = 
+        "<li><a class=\"dropdown-item\" href=\"" . $url . "\">". $caption ."</a></li>";
+
+        $menuMarkup .= $menuItemMarkup;
+    }
+
+    return $menuMarkup;
+}
+
+function renderNavigation(array $menu){
+
+    $dropdownContent = "";
+
+    if (!empty($menu)){
+        $dropdownContent =  
+        "<div class=\"dropdown\">" .
+            "<a href=\"#\" class=\"btn btn-link text-white text-decoration-none dropdown-toggle\" " .
+            "id=\"accountDropdown\" " .
+            "role=\"button\" " .
+            "data-bs-toggle=\"dropdown\" " .
+            "aria-expanded=\"false\" " .
+            "aria-label=\"Account\">" .
+                "<img src=\"/images/account.svg\" alt=\"Account\" width=\"30\" height=\"30\">" .
+            "</a>" .
+            "<ul class=\"dropdown-menu dropdown-menu-end\" aria-labelledby=\"accountDropdown\">" .
+                renderMenu($menu) .
+            "</ul>" .
+        "</div>";
+    }
+
+    return
+        "<!-- helpers.renderNavigation -->" .
+        "<div class=\"col d-flex justify-content-end\">" .
+        $dropdownContent .
+        "</div>";
+}
+
+function renderBacklink(string $backLinkHref){
     $backLink = "";
-
     if( !empty($backLinkHref)){
-        $backLink = "<a href=" . $backLinkHref . " class=\"btn btn-link text-white text-decoration-none\" aria-label=\"Go back\">" .
+        $backLink = 
+        "<!-- helpers.renderBacklink -->" .
+        "<a href=" .
+            $backLinkHref .
+        " class=\"btn btn-link text-white text-decoration-none\" aria-label=\"Go back\">" .
         "<img src=\"/images/back-svgrepo-com.svg\" alt=\"Go back\" width=\"30\" height=\"30\">" .
       "</a>";
     }
 
-    return "<!-- helpers.renderHeader -->" .
+    return $backLink;
+}
+
+function renderHeader(Navigation $navigation, string $title): string {
+    $backLink = renderBacklink($navigation->getBacklinkUrl());
+
+    $navigation = renderNavigation($navigation->getMenu());
+
+    $timestamp = date("F d, Y H:i:s", filemtime(__FILE__));
+
+    return "<!-- renderHeader: " . $timestamp . " -->" .
         "<div class=\"container\">" .
             "<div class=\"row custom-blue-bg text-white py-3 align-items-center\">" .
                 // Left empty column for spacing
@@ -22,22 +75,7 @@ function renderHeader(string $backLinkHref, string $title): string {
                     "<h1 class=\"mb-0\">nutribase</h1>" .
                 "</div>" .
                 // Account icon on the right with same width as left column
-                "<div class=\"col d-flex justify-content-end\">" .
-                    "<div class=\"dropdown\">" .
-                        "<a href=\"#\" class=\"btn btn-link text-white text-decoration-none dropdown-toggle\" " .
-                        "id=\"accountDropdown\" " .
-                        "role=\"button\" " .
-                        "data-bs-toggle=\"dropdown\" " .
-                        "aria-expanded=\"false\" " .
-                        "aria-label=\"Account\">" .
-                            "<img src=\"/images/account.svg\" alt=\"Account\" width=\"30\" height=\"30\">" .
-                        "</a>" .
-                        "<ul class=\"dropdown-menu dropdown-menu-end\" aria-labelledby=\"accountDropdown\">" .
-                            "<li><a class=\"dropdown-item\" href=\"/login\">Log In</a></li>" .
-                            "<!-- Add more menu options here if needed -->" .
-                        "</ul>" .
-                    "</div>" .
-                "</div>" .
+                $navigation .
             "</div>" .
         // Subheading
         "<div class=\"row bg-secondary text-white py-2\">" .
@@ -101,5 +139,3 @@ function sendResponse($content, string $contentType = 'application/json', int $h
     // Terminate script
     exit;
 }
-
- 

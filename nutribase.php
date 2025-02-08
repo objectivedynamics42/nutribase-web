@@ -3,13 +3,27 @@
 define('APP_ROOT', __DIR__ . '/');
 
 require_once APP_ROOT . 'app/Logger.php';
-require_once APP_ROOT . 'app/helpers/helpers.php';
-require_once APP_ROOT . 'app/helpers/SharedConstants.php';
-require_once APP_ROOT . 'app/repositories/NutribaseRepository.php';
+
+require_once APP_ROOT . 'app/controllers/AddUserController.php';
+require_once APP_ROOT . 'app/controllers/AdminController.php';
 require_once APP_ROOT . 'app/controllers/FoodItemController.php';
 require_once APP_ROOT . 'app/controllers/LoginController.php';
 require_once APP_ROOT . 'app/controllers/TagsController.php';
 require_once APP_ROOT . 'app/controllers/TaggedFoodsController.php';
+
+require_once APP_ROOT . 'app/helpers/helpers.php';
+require_once APP_ROOT . 'app/helpers/Navigation.php';
+require_once APP_ROOT . 'app/helpers/SharedConstants.php';
+
+require_once APP_ROOT . 'app/repositories/NutribaseRepository.php';
+require_once APP_ROOT . 'app/repositories/AuthRepository.php';
+
+require_once APP_ROOT . 'app/views/AdminView.php';
+require_once APP_ROOT . 'app/views/FoodItemView.php';
+require_once APP_ROOT . 'app/views/LoginView.php';
+require_once APP_ROOT . 'app/views/TaggedFoodsView.php';
+require_once APP_ROOT . 'app/views/TagsView.php';
+
 
 // Database connection details
 $servername = "localhost";
@@ -38,69 +52,62 @@ try {
         $query = array_change_key_case($query, CASE_LOWER);
 
         Logger::log("Checking request uri: " . $uri);
-        
-        switch ($uri) {
-            case '/nutribase.php/gettags':
-            case '/nutribase/gettags':
+        $path = preg_replace('#^/nutribase(?:\.php)?/(.+)$#', '$1', $uri);
+        Logger::log("Preprocessed request uri as: " . $path);
+
+        switch ($path) {
+            case 'get-categories':
             case '/nutribase':
             case '/':
-                $tagsController = new TagsController($repository);
-                $tagsController->getTags();
+                $controller = new TagsController($repository);
+                $controller->getTags();
                 break;
 
-            case '/nutribase.php/getfoods':
-            case '/nutribase/getfoods':
+            case 'add-user':
+                //  /nutribase/add-user?email=popeye@home.com&password=sesame
+                $email = $query['email'];
+                $password = $query['password'];
 
-                $tagID = $query['tagid'];
-                Logger::log("Request for /nutribase/getfoods with tagId: " . $tagID);
+
+                Logger::log("Creating auth repository");
+                $repository = new AuthRepository($conn);
+                $controller = new AddUserController($repository);
+                $controller->register($email,$password);
+                break;
+
+            case 'get-foods':
+
+                $tagID = $query['cat'];
+                Logger::log("Request for /nutribase/get-foods with tagId: " . $tagID);
 
                 if (!isset($tagID)) {
                     sendResponse(["error" => "Missing required parameter: tagid"], 'application/json', 400);
                     break;
                 }
-                $taggedFoodsController = new TaggedFoodsController($repository, (int)$tagID);
-                $taggedFoodsController->getTaggedFoods();
+                $controller = new TaggedFoodsController($repository, (int)$tagID);
+                $controller->getTaggedFoods();
                 break;
 
-            case '/nutribase.php/getfooditem':
-            case '/nutribase/getfooditem':
+            case 'get-food-item':
 
                 $foodId = $query['foodid'];
                 if (!isset($foodId)) {
                     sendResponse(["error" => "Missing required parameter: foodid"], 'application/json', 400);
                     break;
                 }
-                $backLinkTagId = $query['tagid'];
+                $backLinkTagId = $query['cat'];
                 if (!isset($backLinkTagId)) {
                     sendResponse(["error" => "Missing required parameter: tagid"], 'application/json', 400);
                     break;
                 }
 
-                $foodItemController = new FoodItemController($repository, (int)$foodId, (int)$backLinkTagId);
-                $foodItemController->getFoodItem();
+                $controller = new FoodItemController($repository, (int)$foodId, (int)$backLinkTagId);
+                $controller->getFoodItem();
                 break;
 
-            case '/login':
-                $loginController = new LoginController($repository);
-                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                    // Check if username and password were submitted
-                    if (!isset($_POST['username']) || !isset($_POST['password'])) {
-                        sendResponse([
-                            "error" => "Missing required fields: username and password"
-                        ], 'application/json', 400);
-                        break;
-                    }
-                    
-                    // Sanitize inputs
-                    $username = filter_var($_POST['username'], FILTER_SANITIZE_STRING);
-                    $password = $_POST['password']; // Don't sanitize password as it might contain special chars
-                    
-                    // Handle login attempt
-                    $loginController->handleLogin($username, $password);
-                } else {
-                    // GET request - show login form
-                    $loginController->login();
-                }
+            case 'admin':
+                $controller = new AdminController();
+                $controller->handleAdmin();
                 break;
 
             default:

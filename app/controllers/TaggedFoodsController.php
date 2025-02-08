@@ -1,7 +1,5 @@
 <?php
 
-require_once APP_ROOT . 'app/views/TaggedFoodsView.php';
-
 class TaggedFoodsController {
     private $repository;
     private $view;
@@ -25,10 +23,23 @@ class TaggedFoodsController {
             Logger::log("getTaggedFoods - tagId: " . $this->tagId);
 
             $foods = $this->repository->getFoodsByTagId($this->tagId);
-            $html = $this->view->renderFoods($this->tagId, $tagResult[0]['tagName'], $foods);
+
+            $tagId = $this->tagId;
+            $tagName = $tagResult[0]['tagName'];
+            $navigation = $this->createNavigation();
+            $html = $this->view->renderFoods($tagId, $tagName, $foods, $navigation);
+
             sendResponse($html, 'text/html');
         } catch (Exception $e) {
             sendResponse(["error" => $e->getMessage()], 'application/json', 500);
         }
+    }
+
+    private function createNavigation() : Navigation {
+        $backLink = SharedConstants::RELATIVE_BASE_URL;
+        $menu = [
+            "Admin..." => "/nutribase/admin"
+        ];
+        return new Navigation($backLink, $menu);
     }
 }

@@ -3,18 +3,13 @@
 class TaggedFoodsView {
 
     private function renderFoodAnchor(int $foodId, string $foodName, string $tagId): string {
-        $url = "https://objectivedynamics.co.uk/nutribase/getfooditem?foodId=" . $foodId . "&tagId=" . $tagId;
+        $url = "/nutribase/get-food-item?foodId=" . $foodId . "&cat=" . $tagId;
         return "<a href=\"" . htmlspecialchars($url) . "\" class=\"text-decoration-none\">" . 
                htmlspecialchars($foodName) . "</a>";
     }
 
-    private function renderTaggedFoodsBackLink(): string {
-        return  SharedConstants::BASE_ADDRESS;
-    }
-
-    public function renderFoods(string $tagId, string $tagName, array $foods): string {
-        $backLinkHref = $this->renderTaggedFoodsBackLink();
-        $content = renderHeader($backLinkHref, $tagName);
+    public function renderFoods(string $tagId, string $tagName, array $foods, Navigation $navigation): string {
+        $content = renderHeader($navigation, $tagName);
         $content .= "<div class=\"row mt-4\"><div class=\"col\"><ul class=\"list-group\">";
 
         Logger::log("renderFoods - tagId: " . $tagId);
