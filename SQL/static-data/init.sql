@@ -70,7 +70,7 @@ INSERT INTO `food` (`name`, `kcal_per_unit`, `protein_grams_per_unit`, `unit_cap
 ('Rice - Wholegrain, dried', 280.00, NULL, NULL),
 ('Rice - Wholegrain, cooked', 4321.00, NULL, NULL),
 ('Chicken Breast', 106.00, 32.00, NULL),
-('Ryvita - Fruity', 56.00, NULL, 'Per Biscuit'),
+('Crispbread -  Sesame - Rivercote (LIDL)', 36.00, 1.2, 'Per Biscuit'),
 ('Bread - Wholemeal', 121.00, NULL, 'Per Round'),
 ('Eggs - Large', 85.00, NULL, 'Per Egg'),
 ('Eggs - Medium', 72.00, 7.00, 'Per Egg'),
@@ -117,6 +117,8 @@ INSERT INTO `food` (`name`, `kcal_per_unit`, `protein_grams_per_unit`, `unit_cap
 ('Porridge - Mornflake', 369.00, 11.50, NULL),
 ('Seed - Mixed - Holland & Barrett', 566.00, 23.70, NULL),
 ('Seed - Mixed - Alesto (LIDL)', 576.00, 23.00, NULL),
+('Stock Cubes - Organic Mushroom - Kallo', 35, 0, "Per Cube"),
+('Stock Cubes - Organic Tomato & Herb - Kallo', 40, 0, "Per Cube"),
 ('Asparagus', 26.00, NULL, NULL),
 ('Aubergine', 25.00, NULL, NULL),
 ('Broccoli', 25.00, NULL, NULL),
@@ -210,6 +212,8 @@ WHERE
   (f.name = 'Nuts - Mixed - Alesto (LIDL)' AND t.name = 'Packaged') OR
   (f.name = 'Seed - Mixed - Holland & Barrett' AND t.name = 'Packaged') OR
   (f.name = 'Seed - Mixed - Alesto (LIDL)' AND t.name = 'Packaged') OR
+  (f.name = 'Stock Cubes - Organic Mushroom - Kallo' AND t.name = 'Packaged') OR
+  (f.name = 'Stock Cubes - Organic Tomato & Herb - Kallo' AND t.name = 'Packaged') OR
   (f.name = 'Lime Pickle' AND t.name = 'Packaged') OR
   (f.name = 'Pesto - Green' AND t.name = 'Packaged') OR
   (f.name = 'Fusili - Cooked, Baresa (LIDL)' AND t.name = 'Pasta') OR
