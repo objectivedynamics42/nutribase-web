@@ -83,6 +83,7 @@ INSERT INTO `food` (`name`, `kcal_per_unit`, `protein_grams_per_unit`, `unit_cap
 ('Milk - UHT Skimmed - Dairy Manor (LIDL)', 35.00, 3.40, NULL),
 ('Milk - Soya', 33.00, NULL, NULL),
 ('Milk - Oat - Vemondo', 41.00, NULL, NULL),
+('Coconut Milk', 740.00, NULL, NULL),
 ('Fresh Orange Juice (LIDL)', 50.00, NULL, NULL),
 ('PhD Whey Protein Powder', 96.00, 64.00, NULL),
 ('Apple - Fresh', 36.00, NULL, NULL),
@@ -130,6 +131,7 @@ INSERT INTO `food` (`name`, `kcal_per_unit`, `protein_grams_per_unit`, `unit_cap
 ('Garlic - Fresh', 111.00, NULL, NULL),
 ('Garlic - Paste', 102.00, NULL, NULL),
 ('Ginger - Paste', 49.00, NULL, NULL),
+('Honey - Runny - Highgate Fayre (LIDL)', 359.00, NULL, NULL),
 ('Mushrooms', 20.00, NULL, NULL),
 ('Olives', 155.00, NULL, NULL),
 ('Onion', 25.00, NULL, NULL),
@@ -208,14 +210,16 @@ WHERE
   (f.name = 'Lentils Green - Dried' AND t.name = 'Legumes') OR
   (f.name = 'Chicken Breast' AND t.name = 'Meat') OR
   (f.name = 'Rapeseed Oil' AND t.name = 'Oil') OR
+  (f.name = 'Coconut Milk' AND t.name = 'Packaged') OR
   (f.name = 'Fresh Orange Juice (LIDL)' AND t.name = 'Packaged') OR
+  (f.name = 'Honey - Runny - Highgate Fayre (LIDL)' AND t.name = 'Packaged') OR
+  (f.name = 'Lime Pickle' AND t.name = 'Packaged') OR
   (f.name = 'Nuts - Mixed - Alesto (LIDL)' AND t.name = 'Packaged') OR
+  (f.name = 'Pesto - Green' AND t.name = 'Packaged') OR
   (f.name = 'Seed - Mixed - Holland & Barrett' AND t.name = 'Packaged') OR
   (f.name = 'Seed - Mixed - Alesto (LIDL)' AND t.name = 'Packaged') OR
   (f.name = 'Stock Cubes - Organic Mushroom - Kallo' AND t.name = 'Packaged') OR
   (f.name = 'Stock Cubes - Organic Tomato & Herb - Kallo' AND t.name = 'Packaged') OR
-  (f.name = 'Lime Pickle' AND t.name = 'Packaged') OR
-  (f.name = 'Pesto - Green' AND t.name = 'Packaged') OR
   (f.name = 'Fusili - Cooked, Baresa (LIDL)' AND t.name = 'Pasta') OR
   (f.name = 'Fusili - Dried, Baresa (LIDL)' AND t.name = 'Pasta') OR
   (f.name = 'Tagliatelli - Dried, Sainsbury' AND t.name = 'Pasta') OR
