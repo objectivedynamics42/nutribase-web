@@ -1,7 +1,8 @@
 <?php
 
 class Logger {
-    private static $logFilePath = "/data03/object/public_html/nutribase_log";
+    // Dynamically resolve path to log file in the application root
+    private static $logFilePath;
     private static $initialized = false;
 
     private function __construct() {
@@ -12,13 +13,15 @@ class Logger {
             return true;
         }
 
+        // Determine root path dynamically (one level up from this file's directory)
+        $rootPath = dirname(__DIR__);
+        self::$logFilePath = $rootPath . DIRECTORY_SEPARATOR . "nutribase_log";
+
         $directory = dirname(self::$logFilePath);
 
-        // Check if directory exists, if not try to create it
+        // Check if directory exists, if not fail early (safer than mkdir without permission)
         if (!is_dir($directory)) {
-            if (!mkdir($directory, 0755, true)) {
-                throw new RuntimeException("Failed to create log directory: $directory");
-            }
+            throw new RuntimeException("Log directory does not exist: $directory");
         }
 
         // Check if file exists, if not try to create it
@@ -39,11 +42,15 @@ class Logger {
     }
 
     public static function log($message) {
-        self::initializeLogFile();
-        
-        $timestamp = date("Y-m-d H:i:s"); // Format: YYYY-MM-DD HH:MM:SS        
-        if (error_log($timestamp . " " . $message . "\n", 3, self::$logFilePath) === false) {
-            throw new RuntimeException("Failed to write to log file: " . self::$logFilePath);
+        try {
+            self::initializeLogFile();
+            $timestamp = date("Y-m-d H:i:s");
+            if (error_log($timestamp . " " . $message . "\n", 3, self::$logFilePath) === false) {
+                throw new RuntimeException("Failed to write to log file: " . self::$logFilePath);
+            }
+        } catch (RuntimeException $e) {
+            // Optional: log to default PHP error log or ignore
+            error_log("Logger error: " . $e->getMessage());
         }
     }
 }
